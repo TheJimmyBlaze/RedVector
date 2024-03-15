@@ -1,20 +1,26 @@
 import { 
-    useCanvas,
-    useCamera,
-    useGame
+    Canvas,
+    Camera,
+    Game
 } from 'titanium-ecs';
 
-const gameCanvas = useCanvas({
-    elementId: 'gameCanvas'
+const gameCanvas = Canvas({
+    elementId: 'gameCanvas',
+    backgroundColour: 'SeaGreen'
 });
-const gameCamera = useCamera({
-    canvas: gameCanvas,
-    backgroundColour: 'red'
+const gameCamera = Camera({
+    canvas: gameCanvas
 });
 
-const game = useGame({
+const bonusCamera = Camera({
+    canvas: gameCanvas,
+});
+
+const game = Game({
     entities: [
-        gameCamera
+        gameCanvas,
+        gameCamera,
+        bonusCamera
     ]
 });
 
