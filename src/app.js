@@ -1,28 +1,34 @@
 import { 
     Canvas,
     Camera,
+    Debug,
+    registry,
     Game
 } from 'titanium-ecs';
 
-const gameCanvas = Canvas({
-    elementId: 'gameCanvas',
+const canvas = Canvas({
+    elementId: 'canvas',
     backgroundColour: 'SeaGreen'
 });
+
 const gameCamera = Camera({
-    canvas: gameCanvas
+    canvas: canvas
 });
 
-const bonusCamera = Camera({
-    canvas: gameCanvas,
+const uiCamera = Camera({
+    canvas: canvas
 });
 
-const game = Game({
-    entities: [
-        gameCanvas,
-        gameCamera,
-        bonusCamera
-    ]
+const debug = Debug({
+    camera: uiCamera
 });
+
+const game = Game();
+
+registry.register({ entity: debug });
+registry.register({ entity: canvas});
+registry.register({ entity: gameCamera });
+registry.register({ entity: uiCamera });
 
 export const run = () => {
     window.addEventListener('load', () => game.start());
