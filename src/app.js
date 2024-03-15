@@ -4,7 +4,7 @@ import {
     Debug,
     registry,
     Game
-} from 'titanium-ecs';
+} from 'titanium';
 
 const canvas = Canvas({
     elementId: 'canvas',
