@@ -26,9 +26,9 @@ const debug = Debug({
 const game = Game();
 
 registry.register({ entity: debug });
-registry.register({ entity: canvas});
-registry.register({ entity: gameCamera });
-registry.register({ entity: uiCamera });
+registry.register({ entity: gameCamera, priority: 9998 });
+registry.register({ entity: uiCamera, priority: 9999 });
+registry.register({ entity: canvas, priority: 9997});
 
 export const run = () => {
     window.addEventListener('load', () => game.start());
