@@ -1,19 +1,19 @@
-import { performanceProfiler, registry, game } from 'titanium';
+import { usePerformanceProfiler, useGame, registry } from 'titanium';
 
-import { appCanvas } from './entity/graphics/appCanvas';
-import { gameCamera, gameCamera } from './entity/graphics/gameCamera';
-import { uiCamera } from './entity/graphics/uiCamera';
+import { useAppCanvas } from './entity/graphics/appCanvas';
+import { useGameCamera } from './entity/graphics/gameCamera';
+import { useUiCamera } from './entity/graphics/uiCamera';
 
-const game = game();
+const game = useGame({});
 
-const appCanvas = appCanvas();
-const gameCamera = gameCamera({canvas: appCanvas});
-const uiCamera = gameCamera({canvas: appCanvas});
+const appCanvas = useAppCanvas();
+const gameCamera = useGameCamera({canvas: appCanvas});
+const uiCamera = useUiCamera({canvas: appCanvas});
 registry.register(appCanvas);
 registry.register(gameCamera);
 registry.register(uiCamera);
 
-const performanceProfiler = performanceProfiler();
+const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera.components.uiCamera});
 registry.register(performanceProfiler);
 
 console.log(registry.stringify());

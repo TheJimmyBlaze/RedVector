@@ -1,16 +1,16 @@
 import { useEntity, useCanvas } from 'titanium';
 
-export const appCanvas = () => {
+export const useAppCanvas = () => {
 
     const name = 'canvas.app';
 
-    const appCanvas = useCanvas('appCanvas');
+    const appCanvas = useCanvas({elementId: 'appCanvas'});
 
     const entity = useEntity({
         name,
-        components: [
+        components: {
             appCanvas
-        ]
+        }
     });
 
     return {

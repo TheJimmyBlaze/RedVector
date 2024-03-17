@@ -1,18 +1,18 @@
 import { useEntity, useCamera } from 'titanium';
 
-export const gameCamera = ({
+export const useGameCamera = ({
     canvas
 }) => {
 
     const name = 'camera.game';
 
-    const gameCamera = useCamera({canvas});
+    const gameCamera = useCamera({canvas: canvas.components.appCanvas});
 
     const entity = useEntity({
         name,
-        components: [
+        components: {
             gameCamera
-        ]
+        }
     });
 
     return {
