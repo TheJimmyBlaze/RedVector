@@ -3,6 +3,7 @@ import { usePerformanceProfiler, useGame, registry } from 'titanium';
 import { useAppCanvas } from './entity/graphics/appCanvas';
 import { useGameCamera } from './entity/graphics/gameCamera';
 import { useUiCamera } from './entity/graphics/uiCamera';
+import { useTestProp } from './entity/test/testProp';
 
 const game = useGame({});
 
@@ -15,6 +16,11 @@ registry.register(uiCamera);
 
 const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera.components.uiCamera});
 registry.register(performanceProfiler);
+
+registry.register(useTestProp({x: 0, y: 0, drawCamera: gameCamera.components.gameCamera}));
+registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera.components.gameCamera}));
+registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera.components.gameCamera}));
+registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera.components.gameCamera}));
 
 console.log(registry.stringify());
 
