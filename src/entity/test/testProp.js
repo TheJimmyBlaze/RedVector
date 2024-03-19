@@ -5,8 +5,6 @@ export const useTestProp = ({
     drawCamera
 }) => {
 
-    const name = 'test.prop';
-
     const position = usePosition({x, y});
     
     const sprite = useSpriteSheet({
@@ -24,7 +22,6 @@ export const useTestProp = ({
     });
 
     const entity = useEntity({
-        name,
         components: {
             position,
             sprite
