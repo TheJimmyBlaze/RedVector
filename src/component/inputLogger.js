@@ -15,9 +15,9 @@ export const useInputLogger = () => {
         const wheelDelta = input.getMouseWheelDelta();
         logObject['wheelDelta'] = wheelDelta;
 
-        const {x, y} = input.getMousePosition().getPosition();
-        logObject['mouseX'] = x;
-        logObject['mouseY'] = y;
+        // const {x, y} = input.getMousePosition().getPosition();
+        // logObject['mouseX'] = x;
+        // logObject['mouseY'] = y;
 
         console.log(JSON.stringify(logObject));
     };

@@ -26,7 +26,8 @@ registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera.components
 registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera.components.gameCamera}));
 registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera.components.gameCamera}));
 
-registry.register(useInputTest()); 
+// registry.register(useInputTest()); 
+// registry.register(useInputTest()); 
 
 console.log(registry.stringify());
 
