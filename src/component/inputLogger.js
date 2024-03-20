@@ -1,4 +1,4 @@
-import { input, mousePosition } from 'titanium';
+import { input } from 'titanium';
 
 export const useInputLogger = () => {
 
@@ -15,7 +15,7 @@ export const useInputLogger = () => {
         const wheelDelta = input.getMouseWheelDelta();
         logObject['wheelDelta'] = wheelDelta;
 
-        const {x, y} = mousePosition.getRelativePosition().getPosition();
+        const {x, y} = input.getMousePosition().getPosition();
         logObject['mouseX'] = x;
         logObject['mouseY'] = y;
 
