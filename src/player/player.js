@@ -10,14 +10,16 @@ import {
 import { usePlayerStateMachine } from './playerStateMachine';
 import { usePlayerAnimator } from './playerAnimator';
 
-export const usePlayer = () => {
+export const usePlayer = ({
+    drawCamera
+}) => {
 
     const playerPosition = usePosition({});
     const playerMotion = useMotion({});
 
     const colliderPosition = usePosition({
         y: -16,
-        parent: position
+        parent: playerPosition
     });
     const playerCollider = useCircleCollider({
         position: colliderPosition,
@@ -32,10 +34,13 @@ export const usePlayer = () => {
     });
 
     const playerStateMachine = usePlayerStateMachine({
+        playerPosition,
         playerMotion
     });
     const playerAnimator = usePlayerAnimator({
-        playerStateMachine
+        playerPosition,
+        playerStateMachine,
+        drawCamera
     });
 
     const entity = useEntity({

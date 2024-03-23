@@ -4,7 +4,7 @@ export const useGameCamera = ({
     canvas
 }) => {
 
-    const gameCamera = useCamera({canvas: canvas.components.appCanvas});
+    const gameCamera = useCamera({canvas});
 
     const entity = useEntity({
         components: {
@@ -13,6 +13,7 @@ export const useGameCamera = ({
     });
 
     return {
+        ...gameCamera,
         ...entity
     };
 };

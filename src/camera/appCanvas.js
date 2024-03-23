@@ -11,6 +11,7 @@ export const useAppCanvas = () => {
     });
 
     return {
+        ...appCanvas,
         ...entity
     };
 };

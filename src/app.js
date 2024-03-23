@@ -16,17 +16,23 @@ const game = useGame({});
 const appCanvas = useAppCanvas();
 const gameCamera = useGameCamera({canvas: appCanvas});
 const uiCamera = useUiCamera({canvas: appCanvas});
+
+gameCamera.setScale(5);
+uiCamera.setScale(2.5);
+
 registry.register(appCanvas);
 registry.register(gameCamera);
 registry.register(uiCamera);
 
-const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera.components.uiCamera});
+const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera});
 registry.register(performanceProfiler);
 
-registry.register(useTestProp({x: 0, y: 0, drawCamera: gameCamera.components.gameCamera}));
-registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera.components.gameCamera}));
-registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera.components.gameCamera}));
-registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera.components.gameCamera}));
+registry.register(useTestProp({x: 50, y: -125, drawCamera: gameCamera}));
+registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera}));
+registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera}));
+registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera}));
+
+registry.register(usePlayer({drawCamera: gameCamera}));
 
 // registry.register(useInputTest());
 // registry.register(useInputTest());
