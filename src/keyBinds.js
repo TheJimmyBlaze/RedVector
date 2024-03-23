@@ -1,14 +1,33 @@
 import { input } from 'titanium';
 
+export const binds = {
+
+    //UI
+    menu: 'menu',
+    debug: 'debug',
+
+    //Movement
+    moveUp: 'move.up',
+    moveDown: 'move.down',
+    moveLeft: 'move.left',
+    moveRight: 'move.right',
+
+    //Weapon
+    weaponOne: 'weapon.one',
+    weaponTwo: 'weapon.two',
+    weaponAttack: 'weapon.attack',
+    weaponAim: 'weapon.aim'
+};
+
 //UI
 input.setBind({
-    alias: 'menu',
+    alias: binds.menu,
     primary: {
         key: 'Escape'
     }
 });
 input.setBind({
-    alias: 'debug',
+    alias: binds.debug,
     primary: {
         key: 'Backslash'
     }
@@ -16,7 +35,7 @@ input.setBind({
 
 //Movement
 input.setBind({
-    alias: 'up',
+    alias: binds.moveUp,
     primary: {
         key: 'KeyW'
     },
@@ -25,7 +44,7 @@ input.setBind({
     }
 });
 input.setBind({
-    alias: 'down',
+    alias: binds.moveDown,
     primary: {
         key: 'KeyS'
     },
@@ -34,7 +53,7 @@ input.setBind({
     }
 });
 input.setBind({
-    alias: 'left',
+    alias: binds.moveLeft,
     primary: {
         key: 'KeyA'
     },
@@ -43,7 +62,7 @@ input.setBind({
     }
 });
 input.setBind({
-    alias: 'right',
+    alias: binds.moveRight,
     primary: {
         key: 'KeyD'
     },
@@ -54,25 +73,25 @@ input.setBind({
 
 //Weapon
 input.setBind({
-    alias: 'weaponOne',
+    alias: binds.weaponOne,
     primary: {
         key: 'Digit1'
     }
 });
 input.setBind({
-    alias: 'weaponTwo',
+    alias: binds.weaponTwo,
     primary: {
         key: 'Digit2'
     }
 });
 input.setBind({
-    alias: 'weaponAttack',
+    alias: binds.weaponAttack,
     primary: {
         mouseButton: 0
     }
 });
 input.setBind({
-    alias: 'weaponAim',
+    alias: binds.weaponAim,
     primary: {
         mouseButton: 2
     }

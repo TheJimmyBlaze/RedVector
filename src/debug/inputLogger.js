@@ -7,10 +7,10 @@ export const useInputLogger = () => {
         const logObject = {};
 
         const downAliases = Object.keys(input.getBinds());
-        downAliases.forEach(bind => logObject[bind] = input.isDown()[bind]());
+        downAliases.forEach(bind => logObject[bind] = input.isDown(bind));
         
         const pressedAliases = Object.keys(input.getBinds());
-        pressedAliases.forEach(bind => logObject[`${bind}Pressed`] = input.wasPressed()[bind]());
+        pressedAliases.forEach(bind => logObject[`${bind}Pressed`] = input.wasPressed(bind));
 
         const wheelDelta = input.getMouseWheelDelta();
         logObject['wheelDelta'] = wheelDelta;

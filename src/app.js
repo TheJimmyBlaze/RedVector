@@ -18,7 +18,7 @@ const gameCamera = useGameCamera({canvas: appCanvas});
 const uiCamera = useUiCamera({canvas: appCanvas});
 
 gameCamera.setScale(5);
-uiCamera.setScale(2.5);
+uiCamera.setScale(1.5);
 
 registry.register(appCanvas);
 registry.register(gameCamera);

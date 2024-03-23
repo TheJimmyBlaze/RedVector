@@ -7,6 +7,7 @@ import {
     input
 } from 'titanium';
 
+import { usePlayerController } from './playerController';
 import { usePlayerStateMachine } from './playerStateMachine';
 import { usePlayerAnimator } from './playerAnimator';
 
@@ -16,6 +17,9 @@ export const usePlayer = ({
 
     const playerPosition = usePosition({});
     const playerMotion = useMotion({});
+    const playerController = usePlayerController({
+        playerMotion
+    });
 
     const colliderPosition = usePosition({
         y: -16,
@@ -47,6 +51,7 @@ export const usePlayer = ({
         components: {
             playerPosition,
             playerMotion,
+            playerController,
             playerCollider,
             playerRigidBody,
             playerStateMachine,

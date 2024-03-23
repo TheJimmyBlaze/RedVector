@@ -27,7 +27,7 @@ export const usePlayerAnimator = ({
     });
     
     const update = () => {
-
+        
     };
 
     const draw = () => {

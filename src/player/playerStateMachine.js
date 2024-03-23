@@ -157,13 +157,13 @@ export const usePlayerStateMachine = ({
         condition: () => false
     });
 
-    const entity = useEntity({
-        components: {
-            finiteStateMachine
-        }
-    });
+    const update = () => {
+        finiteStateMachine.actions.update();
+    };
 
     return {
-        ...entity
+        actions: {
+            update
+        }
     };
 };
