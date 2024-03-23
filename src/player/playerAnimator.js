@@ -3,6 +3,8 @@ import {
     useSpriteSheetRun
 } from 'titanium';
 
+import { playerStates } from './playerStateMachine';
+
 export const usePlayerAnimator = ({
     playerPosition,
     playerStateMachine,
@@ -21,13 +23,31 @@ export const usePlayerAnimator = ({
         ]
     });
 
-    let sprite = sprites.idleRight({
-        position: playerPosition,
-        camera: drawCamera
-    });
+    let sprite = null;
+    const setSprite = (spriteName, reverse = false) => {
+
+        if (spriteName === sprite?.name) return;
+
+        sprite = sprites[spriteName]({
+            position: playerPosition,
+            camera: drawCamera,
+            options: {
+                reverse
+            }
+        })
+    };
+    setSprite('idleRight');
     
     const update = () => {
-        
+        switch(playerStateMachine.getState()) {
+            case playerStates.idle.right:
+                setSprite('idleRight');
+                break;
+            case playerStates.walk.right:
+                setSprite('runRight');
+            case playerStates.walk.rightBackwards:
+                setSprite('runRight', true);
+        }
     };
 
     const draw = () => {

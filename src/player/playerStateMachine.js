@@ -45,12 +45,12 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.right,
         enterState: playerStates.walk.right,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX > playerMotion.getAcceleration()
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.right,
         enterState: playerStates.walk.rightBackwards,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX < -playerMotion.getAcceleration()
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.left,
@@ -65,7 +65,7 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.right,
         enterState: playerStates.idle.right,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX < playerMotion.getAcceleration()
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.left,
@@ -75,7 +75,7 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.rightBackwards,
         enterState: playerStates.idle.right,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX > -playerMotion.getAcceleration()
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.leftBackwards,
@@ -157,13 +157,7 @@ export const usePlayerStateMachine = ({
         condition: () => false
     });
 
-    const update = () => {
-        finiteStateMachine.actions.update();
-    };
-
     return {
-        actions: {
-            update
-        }
+        ...finiteStateMachine
     };
 };
