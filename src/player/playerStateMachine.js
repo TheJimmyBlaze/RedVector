@@ -1,151 +1,159 @@
 import { useFiniteStateMachine, useEntity } from 'titanium';
 
-export const idleLeft = 'player.state.idleLeft';
-export const idleRight = 'player.state.idleRight';
+export const playerStates = {
+    idle: {
+        left: 'player.state.idle.left',
+        right: 'player.state.idle.right'
+    },
+    walk: {
+        left: 'player.state.walk.left',
+        right: 'player.state.walk.right',
+        leftBackwards: 'player.state.walk.leftBackwards',
+        rightBackwards: 'player.state.walk.rightBackwards'
+    },
+    run: {
+        left: 'player.state.run.left',
+        right: 'player.state.run.right'
+    },
+    dive: {
+        left: 'player.state.dive.left',
+        right: 'player.state.dive.right'
+    }
+};
 
-export const walkLeft = 'player.state.walkLeft';
-export const walkBackLeft = 'player.state.walkBackLeft';
-export const walkRight = 'player.state.walkRight';
-export const walkBackRight = 'player.state.walkBackRight';
-
-export const runLeft = 'player.state.runLeft';
-export const runRight = 'player.state.runRight';
-
-export const diveLeft = 'player.state.diveLeft';
-export const diveRight = 'player.state.diveRight';
-
-
-export const usePlayerStateMachine = () => {
+export const usePlayerStateMachine = ({
+    playerMotion
+}) => {
 
     const finiteStateMachine = useFiniteStateMachine({
-        initialState: idleRight
+        initialState: playerStates.idle.right
     });
 
     //Idle
     finiteStateMachine.addTransition({
-        exitState: idleRight,
-        enterState: idleLeft,
+        exitState: playerStates.idle.right,
+        enterState: playerStates.idle.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: idleLeft,
-        enterState: idleRight,
+        exitState: playerStates.idle.left,
+        enterState: playerStates.idle.right,
         condition: () => false
     });
 
     //Walk
     finiteStateMachine.addTransition({
-        exitState: idleRight,
-        enterState: walkRight,
+        exitState: playerStates.idle.right,
+        enterState: playerStates.walk.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: idleRight,
-        enterState: walkBackRight,
+        exitState: playerStates.idle.right,
+        enterState: playerStates.walk.rightBackwards,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: idleLeft,
-        enterState: walkLeft,
+        exitState: playerStates.idle.left,
+        enterState: playerStates.walk.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: idleLeft,
-        enterState: walkBackLeft,
+        exitState: playerStates.idle.left,
+        enterState: playerStates.walk.leftBackwards,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkRight,
-        enterState: idleRight,
+        exitState: playerStates.walk.right,
+        enterState: playerStates.idle.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkLeft,
-        enterState: idleLeft,
+        exitState: playerStates.walk.left,
+        enterState: playerStates.idle.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkBackRight,
-        enterState: idleRight,
+        exitState: playerStates.walk.rightBackwards,
+        enterState: playerStates.idle.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkBackLeft,
-        enterState: idleLeft,
+        exitState: playerStates.walk.leftBackwards,
+        enterState: playerStates.idle.left,
         condition: () => false
     });
 
     //Run
     finiteStateMachine.addTransition({
-        exitState: walkRight,
-        enterState: runRight,
+        exitState: playerStates.walk.right,
+        enterState: playerStates.run.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkLeft,
-        enterState: runLeft,
+        exitState: playerStates.walk.left,
+        enterState: playerStates.run.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runRight,
-        enterState: walkRight,
+        exitState: playerStates.run.right,
+        enterState: playerStates.walk.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runLeft,
-        enterState: walkLeft,
+        exitState: playerStates.run.left,
+        enterState: playerStates.walk.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runRight,
-        enterState: idleRight,
+        exitState: playerStates.run.right,
+        enterState: playerStates.idle.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runLeft,
-        enterState: idleLeft,
+        exitState: playerStates.run.left,
+        enterState: playerStates.idle.left,
         condition: () => false
     });
 
     //Dive
     finiteStateMachine.addTransition({
-        exitState: walkRight,
-        enterState: diveRight,
+        exitState: playerStates.walk.right,
+        enterState: playerStates.dive.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkLeft,
-        enterState: diveLeft,
+        exitState: playerStates.walk.left,
+        enterState: playerStates.dive.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkBackRight,
-        enterState: diveLeft,
+        exitState: playerStates.walk.rightBackwards,
+        enterState: playerStates.dive.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: walkBackLeft,
-        enterState: diveRight,
+        exitState: playerStates.walk.leftBackwards,
+        enterState: playerStates.dive.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runRight,
-        enterState: diveRight,
+        exitState: playerStates.run.right,
+        enterState: playerStates.dive.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: runLeft,
-        enterState: diveLeft,
+        exitState: playerStates.run.left,
+        enterState: playerStates.dive.left,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: diveRight,
-        enterState: idleRight,
+        exitState: playerStates.dive.right,
+        enterState: playerStates.idle.right,
         condition: () => false
     });
     finiteStateMachine.addTransition({
-        exitState: diveLeft,
-        enterState: idleLeft,
+        exitState: playerStates.dive.left,
+        enterState: playerStates.idle.left,
         condition: () => false
     });
 

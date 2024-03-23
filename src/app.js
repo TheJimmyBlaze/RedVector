@@ -6,7 +6,7 @@ import { useAppCanvas } from './camera/appCanvas';
 import { useGameCamera } from './camera/gameCamera';
 import { useUiCamera } from './camera/uiCamera';
 
-import { usePlayerStateMachine } from './player/playerStateMachine';
+import { usePlayer } from './player/player';
 
 import { useInputTest } from './debug/inputTest';
 import { useTestProp } from './debug/testProp';
