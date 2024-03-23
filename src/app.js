@@ -2,12 +2,14 @@ import { usePerformanceProfiler, useGame, registry } from 'titanium';
 
 import './keyBinds';
 
-import { useAppCanvas } from './entity/graphics/appCanvas';
-import { useGameCamera } from './entity/graphics/gameCamera';
-import { useUiCamera } from './entity/graphics/uiCamera';
+import { useAppCanvas } from './camera/appCanvas';
+import { useGameCamera } from './camera/gameCamera';
+import { useUiCamera } from './camera/uiCamera';
 
-import { useInputTest } from './entity/test/inputTest';
-import { useTestProp } from './entity/test/testProp';
+import { usePlayerStateMachine } from './player/playerStateMachine';
+
+import { useInputTest } from './debug/inputTest';
+import { useTestProp } from './debug/testProp';
 
 const game = useGame({});
 
@@ -26,8 +28,8 @@ registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera.components
 registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera.components.gameCamera}));
 registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera.components.gameCamera}));
 
-// registry.register(useInputTest()); 
-// registry.register(useInputTest()); 
+// registry.register(useInputTest());
+// registry.register(useInputTest());
 
 console.log(registry.stringify());
 

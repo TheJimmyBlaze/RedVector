@@ -1,5 +1,5 @@
 import { useEntity } from 'titanium';
-import { useInputLogger } from '../../component/inputLogger';
+import { useInputLogger } from './inputLogger';
 
 export const useInputTest = () => {
 
