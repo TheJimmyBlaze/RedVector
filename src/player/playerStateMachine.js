@@ -1,4 +1,4 @@
-import { useFiniteStateMachine, useEntity } from 'titanium';
+import { useFiniteStateMachine } from 'titanium';
 
 export const playerStates = {
     idle: {
@@ -22,7 +22,9 @@ export const playerStates = {
 };
 
 export const usePlayerStateMachine = ({
-    playerMotion
+    playerMotion,
+    walkSpeed,
+    sprintSpeed
 }) => {
 
     const finiteStateMachine = useFiniteStateMachine({
@@ -45,12 +47,12 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.right,
         enterState: playerStates.walk.right,
-        condition: () => playerMotion.getMotion().velocityX > playerMotion.getAcceleration()
+        condition: () => playerMotion.getMotion().velocityX >= walkSpeed
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.right,
         enterState: playerStates.walk.rightBackwards,
-        condition: () => playerMotion.getMotion().velocityX < -playerMotion.getAcceleration()
+        condition: () => playerMotion.getMotion().velocityX <= -walkSpeed
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.idle.left,
@@ -65,7 +67,7 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.right,
         enterState: playerStates.idle.right,
-        condition: () => playerMotion.getMotion().velocityX < playerMotion.getAcceleration()
+        condition: () => playerMotion.getMotion().velocityX < walkSpeed
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.left,
@@ -75,7 +77,7 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.rightBackwards,
         enterState: playerStates.idle.right,
-        condition: () => playerMotion.getMotion().velocityX > -playerMotion.getAcceleration()
+        condition: () => playerMotion.getMotion().velocityX > -walkSpeed
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.leftBackwards,
@@ -87,7 +89,7 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.right,
         enterState: playerStates.run.right,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX >= sprintSpeed * 2.5
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.walk.left,
@@ -97,21 +99,11 @@ export const usePlayerStateMachine = ({
     finiteStateMachine.addTransition({
         exitState: playerStates.run.right,
         enterState: playerStates.walk.right,
-        condition: () => false
+        condition: () => playerMotion.getMotion().velocityX < sprintSpeed * 2.5
     });
     finiteStateMachine.addTransition({
         exitState: playerStates.run.left,
         enterState: playerStates.walk.left,
-        condition: () => false
-    });
-    finiteStateMachine.addTransition({
-        exitState: playerStates.run.right,
-        enterState: playerStates.idle.right,
-        condition: () => false
-    });
-    finiteStateMachine.addTransition({
-        exitState: playerStates.run.left,
-        enterState: playerStates.idle.left,
         condition: () => false
     });
 

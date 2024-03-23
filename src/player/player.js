@@ -15,10 +15,17 @@ export const usePlayer = ({
     drawCamera
 }) => {
 
+    const walkSpeed = 10;
+    const sprintSpeed = 20;
+
     const playerPosition = usePosition({});
-    const playerMotion = useMotion({});
+    const playerMotion = useMotion({
+        acceleration: walkSpeed
+    });
     const playerController = usePlayerController({
-        playerMotion
+        playerMotion,
+        walkSpeed,
+        sprintSpeed
     });
 
     const colliderPosition = usePosition({
@@ -39,7 +46,9 @@ export const usePlayer = ({
 
     const playerStateMachine = usePlayerStateMachine({
         playerPosition,
-        playerMotion
+        playerMotion,
+        walkSpeed,
+        sprintSpeed
     });
     const playerAnimator = usePlayerAnimator({
         playerPosition,

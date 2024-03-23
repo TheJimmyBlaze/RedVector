@@ -16,19 +16,22 @@ export const usePlayerAnimator = ({
         sliceWidth: 32,
         sliceHeight: 32,
         runs: [
-            useSpriteSheetRun({name: 'idleRight'}),
-            useSpriteSheetRun({name: 'idleLeft', y: 1}),
-            useSpriteSheetRun({name: 'runRight', y: 2, spriteCount: 8, fps: 12}),
-            useSpriteSheetRun({name: 'runLeft', y: 3, spriteCount: 8, fps: 12})
+            useSpriteSheetRun({name: 'idle'}),
+            useSpriteSheetRun({name: 'walk', y: 1, spriteCount: 8, fps: 12}),
+            useSpriteSheetRun({name: 'run', y: 2, spriteCount: 8, fps: 12})
         ]
     });
 
     let sprite = null;
-    const setSprite = (spriteName, reverse = false) => {
+    const setSprite = ({
+        name, 
+        flip = false,
+        reverse = false
+    }) => {
 
-        if (spriteName === sprite?.name) return;
+        if (name === sprite?.name) return;
 
-        sprite = sprites[spriteName]({
+        sprite = sprites[name]({
             position: playerPosition,
             camera: drawCamera,
             options: {
@@ -36,17 +39,25 @@ export const usePlayerAnimator = ({
             }
         })
     };
-    setSprite('idleRight');
+    setSprite({name: 'idle'});
     
     const update = () => {
         switch(playerStateMachine.getState()) {
             case playerStates.idle.right:
-                setSprite('idleRight');
+                setSprite({name: 'idle'});
                 break;
             case playerStates.walk.right:
-                setSprite('runRight');
+                setSprite({name: 'walk'});
+                break;
             case playerStates.walk.rightBackwards:
-                setSprite('runRight', true);
+                setSprite({name: 'walk', reverse: true});
+                break;
+            case playerStates.run.right:
+                setSprite({name: 'run'});
+                break;
+            case playerStates.run.rightBackwards:
+                setSprite({name: 'run', reverse: true});
+                break;
         }
     };
 
