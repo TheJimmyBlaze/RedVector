@@ -64,6 +64,7 @@ export const usePlayer = ({
 
     const playerAnimator = usePlayerAnimator({
         playerPosition,
+        playerMotion,
         playerDirectionState,
         playerMovementState,
         drawCamera

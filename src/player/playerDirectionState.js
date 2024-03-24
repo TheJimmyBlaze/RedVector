@@ -14,6 +14,9 @@ export const usePlayerDirectionState = ({
         initialState: directionStates.right
     });
 
+    const isLeft = () => machine.getState() === directionStates.left;
+    const isRight = () => machine.getState() === directionStates.right;
+
     machine.addTransition({
         exitState: directionStates.left,
         enterState: directionStates.right,
@@ -39,6 +42,8 @@ export const usePlayerDirectionState = ({
     });
 
     return {
+        isLeft,
+        isRight,
         ...machine
     };
 };

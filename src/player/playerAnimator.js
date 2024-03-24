@@ -8,6 +8,7 @@ import { movementStates } from './playerMovementState';
 
 export const usePlayerAnimator = ({
     playerPosition,
+    playerMotion,
     playerDirectionState,
     playerMovementState,
     drawCamera
@@ -27,6 +28,11 @@ export const usePlayerAnimator = ({
         ]
     });
 
+    const isMovingBackwards = () => (
+        playerDirectionState.isLeft() && playerMotion.getMotion().velocityX > 0 ||
+        playerDirectionState.isRight() && playerMotion.getMotion().velocityX < 0
+    );
+
     let sprite = null;
     const setSprite = ({
         name, 
@@ -37,8 +43,8 @@ export const usePlayerAnimator = ({
             position: playerPosition,
             camera: drawCamera,
             options: {
-                reverse,
-                flip: playerDirectionState.getState() === directionStates.left
+                reverse: isMovingBackwards(),
+                flip: playerDirectionState.isLeft()
             }
         })
     };
