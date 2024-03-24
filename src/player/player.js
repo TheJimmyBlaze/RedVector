@@ -3,12 +3,12 @@ import {
     useMotion,
     useCircleCollider,
     useRigidBody,
-    useEntity,
-    input
+    useEntity
 } from 'titanium';
 
 import { usePlayerController } from './playerController';
-import { usePlayerStateMachine } from './playerStateMachine';
+import { usePlayerDirectionState } from './playerDirectionState';
+import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
 
 export const usePlayer = ({
@@ -19,10 +19,15 @@ export const usePlayer = ({
     const sprintSpeed = 20;
 
     const playerPosition = usePosition({});
+    const aimPosition = usePosition({});
+
     const playerMotion = useMotion({
         acceleration: walkSpeed
     });
+
     const playerController = usePlayerController({
+        aimPosition,
+        drawCamera,
         playerMotion,
         walkSpeed,
         sprintSpeed
@@ -32,6 +37,7 @@ export const usePlayer = ({
         y: -16,
         parent: playerPosition
     });
+
     const playerCollider = useCircleCollider({
         position: colliderPosition,
         radius: 16
@@ -44,15 +50,22 @@ export const usePlayer = ({
         collider: playerCollider
     });
 
-    const playerStateMachine = usePlayerStateMachine({
+    const playerDirectionState = usePlayerDirectionState({
+        playerPosition,
+        aimPosition
+    });
+
+    const playerMovementState = usePlayerMovementState({
         playerPosition,
         playerMotion,
         walkSpeed,
         sprintSpeed
     });
+
     const playerAnimator = usePlayerAnimator({
         playerPosition,
-        playerStateMachine,
+        playerDirectionState,
+        playerMovementState,
         drawCamera
     });
 
@@ -63,7 +76,8 @@ export const usePlayer = ({
             playerController,
             playerCollider,
             playerRigidBody,
-            playerStateMachine,
+            playerDirectionState,
+            playerMovementState,
             playerAnimator
         }
     });

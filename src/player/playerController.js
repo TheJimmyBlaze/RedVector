@@ -2,12 +2,16 @@ import { input } from 'titanium';
 import { binds } from '../keyBinds';
 
 export const usePlayerController = ({
+    aimPosition,
+    drawCamera,
     playerMotion,
     walkSpeed,
     sprintSpeed
 }) => {
 
     const update = () => {
+
+        aimPosition.moveToPosition(input.getMousePosition(drawCamera));
 
         input.isDown(binds.sprint) && playerMotion.setAcceleration(sprintSpeed) || playerMotion.setAcceleration(walkSpeed);
 

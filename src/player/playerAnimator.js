@@ -3,13 +3,18 @@ import {
     useSpriteSheetRun
 } from 'titanium';
 
-import { playerStates } from './playerStateMachine';
+import { directionStates } from './playerDirectionState';
+import { movementStates } from './playerMovementState';
 
 export const usePlayerAnimator = ({
     playerPosition,
-    playerStateMachine,
+    playerDirectionState,
+    playerMovementState,
     drawCamera
 }) => {
+
+    let previousDirection = playerDirectionState.getState();
+    let previousMovement = playerMovementState.getState();
     
     const sprites = useSpriteSheet({
         imagePath: 'sprites/character_sheet.png',
@@ -25,38 +30,42 @@ export const usePlayerAnimator = ({
     let sprite = null;
     const setSprite = ({
         name, 
-        flip = false,
         reverse = false
     }) => {
-
-        if (name === sprite?.name) return;
 
         sprite = sprites[name]({
             position: playerPosition,
             camera: drawCamera,
             options: {
-                reverse
+                reverse,
+                flip: playerDirectionState.getState() === directionStates.left
             }
         })
     };
     setSprite({name: 'idle'});
     
     const update = () => {
-        switch(playerStateMachine.getState()) {
-            case playerStates.idle.right:
+
+        const playerDirection = playerDirectionState.getState();
+        const playerMovement = playerMovementState.getState();
+
+        if (
+            previousDirection === playerDirection &&
+            previousMovement === playerMovement
+        ) return;
+
+        previousDirection = playerDirection;
+        previousMovement = playerMovement;
+
+        switch(playerMovementState.getState()) {
+            case movementStates.idle:
                 setSprite({name: 'idle'});
                 break;
-            case playerStates.walk.right:
+            case movementStates.walk:
                 setSprite({name: 'walk'});
                 break;
-            case playerStates.walk.rightBackwards:
-                setSprite({name: 'walk', reverse: true});
-                break;
-            case playerStates.run.right:
+            case movementStates.run:
                 setSprite({name: 'run'});
-                break;
-            case playerStates.run.rightBackwards:
-                setSprite({name: 'run', reverse: true});
                 break;
         }
     };
