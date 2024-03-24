@@ -21,24 +21,24 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.idle,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) >= walkSpeed
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= walkSpeed
     });
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.idle,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) < walkSpeed
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkSpeed
     });
 
     //Run
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.run,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) >= sprintSpeed * 2.5
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= sprintSpeed * 3.5
     });
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) < sprintSpeed * 2.5
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < sprintSpeed * 3.5
     });
 
     //Dive

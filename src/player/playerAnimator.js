@@ -3,7 +3,6 @@ import {
     useSpriteSheetRun
 } from 'titanium';
 
-import { directionStates } from './playerDirectionState';
 import { movementStates } from './playerMovementState';
 
 export const usePlayerAnimator = ({
@@ -14,8 +13,14 @@ export const usePlayerAnimator = ({
     drawCamera
 }) => {
 
+    const isMovingBackwards = () => (
+        playerDirectionState.isLeft() && playerMotion.getMotion().velocityX > 0 ||
+        playerDirectionState.isRight() && playerMotion.getMotion().velocityX < 0
+    );
+
     let previousDirection = playerDirectionState.getState();
     let previousMovement = playerMovementState.getState();
+    let previousBackwards = isMovingBackwards();
     
     const sprites = useSpriteSheet({
         imagePath: 'sprites/character_sheet.png',
@@ -28,16 +33,8 @@ export const usePlayerAnimator = ({
         ]
     });
 
-    const isMovingBackwards = () => (
-        playerDirectionState.isLeft() && playerMotion.getMotion().velocityX > 0 ||
-        playerDirectionState.isRight() && playerMotion.getMotion().velocityX < 0
-    );
-
     let sprite = null;
-    const setSprite = ({
-        name, 
-        reverse = false
-    }) => {
+    const setSprite = name => {
 
         sprite = sprites[name]({
             position: playerPosition,
@@ -48,7 +45,7 @@ export const usePlayerAnimator = ({
             }
         })
     };
-    setSprite({name: 'idle'});
+    setSprite('idle');
     
     const update = () => {
 
@@ -57,21 +54,23 @@ export const usePlayerAnimator = ({
 
         if (
             previousDirection === playerDirection &&
-            previousMovement === playerMovement
+            previousMovement === playerMovement &&
+            previousBackwards === isMovingBackwards()
         ) return;
 
         previousDirection = playerDirection;
         previousMovement = playerMovement;
+        previousBackwards = isMovingBackwards();
 
         switch(playerMovementState.getState()) {
             case movementStates.idle:
-                setSprite({name: 'idle'});
+                setSprite('idle');
                 break;
             case movementStates.walk:
-                setSprite({name: 'walk'});
+                setSprite('walk');
                 break;
             case movementStates.run:
-                setSprite({name: 'run'});
+                setSprite('run');
                 break;
         }
     };
