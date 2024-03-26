@@ -7,6 +7,7 @@ import {
 } from 'titanium';
 
 import { usePlayerController } from './playerController';
+import { usePlayerCameraController } from './playerCameraController';
 import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
@@ -31,6 +32,11 @@ export const usePlayer = ({
         playerMotion,
         walkSpeed,
         sprintSpeed
+    });
+
+    const playerCameraController = usePlayerCameraController({
+        playerPosition,
+        drawCamera
     });
 
     const colliderPosition = usePosition({
@@ -75,6 +81,7 @@ export const usePlayer = ({
             playerPosition,
             playerMotion,
             playerController,
+            playerCameraController,
             playerCollider,
             playerRigidBody,
             playerDirectionState,
