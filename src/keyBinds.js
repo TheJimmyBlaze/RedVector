@@ -8,6 +8,7 @@ export const binds = {
 
     //Movement
     sprint: 'move.sprint',
+    dive: 'move.dive',
     moveUp: 'move.up',
     moveDown: 'move.down',
     moveLeft: 'move.left',
@@ -40,7 +41,13 @@ input.setBind({
     primary: {
         key: 'ShiftLeft'
     }
-})
+});
+input.setBind({
+    alias: binds.dive,
+    primary: {
+        key: 'Space'
+    }
+});
 input.setBind({
     alias: binds.moveUp,
     primary: {

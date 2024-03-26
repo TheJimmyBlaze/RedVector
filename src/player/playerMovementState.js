@@ -11,8 +11,10 @@ export const movementStates = {
 
 export const usePlayerMovementState = ({
     playerMotion,
+    playerBalance,
     walkSpeed,
-    sprintSpeed
+    sprintSpeed,
+    diveSpeed
 }) => {
 
     const machine = useFiniteStateMachine({
@@ -47,12 +49,12 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.dip,
-        condition: () => false
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= sprintSpeed * 7
     });
     machine.addTransition({
         exitState: movementStates.dip,
         enterState: movementStates.dive,
-        condition: () => true
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < sprintSpeed * 3.5
     });
     machine.addTransition({
         exitState: movementStates.dive,
@@ -62,7 +64,7 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.recover,
         enterState: movementStates.idle,
-        condition: () => false
+        condition: () => !playerBalance.isOffBalance()
     });
 
     return {

@@ -1,6 +1,8 @@
 import {
     useSpriteSheet,
-    useSpriteSheetRun
+    useSpriteSheetRun,
+    usePosition,
+    lerp
 } from 'titanium';
 
 import { movementStates } from './playerMovementState';
@@ -8,6 +10,7 @@ import { movementStates } from './playerMovementState';
 export const usePlayerAnimator = ({
     playerPosition,
     playerMotion,
+    playerBalance,
     playerDirectionState,
     playerMovementState,
     drawCamera
@@ -29,19 +32,24 @@ export const usePlayerAnimator = ({
         runs: [
             useSpriteSheetRun({name: 'idle'}),
             useSpriteSheetRun({name: 'walk', y: 1, spriteCount: 8, fps: 12}),
-            useSpriteSheetRun({name: 'run', y: 2, spriteCount: 8, fps: 12})
+            useSpriteSheetRun({name: 'run', y: 2, spriteCount: 8, fps: 12}),
+            useSpriteSheetRun({name: 'dip', y: 3}),
+            useSpriteSheetRun({name: 'dive', x: 1, y: 3}),
+            useSpriteSheetRun({name: 'recover', x: 4, y: 3, spriteCount: 4, fps: 12})
         ]
     });
 
     let sprite = null;
-    const setSprite = name => {
+    const setSprite = (name, reverse = false) => {
 
         sprite = sprites[name]({
             position: playerPosition,
             camera: drawCamera,
             options: {
-                reverse: isMovingBackwards(),
-                flip: playerDirectionState.isLeft()
+                offsetY: 4,
+                reverse,
+                flip: playerDirectionState.isLeft(),
+                rotation: sprite?.getOptions().rotation || 0
             }
         })
     };
@@ -53,6 +61,24 @@ export const usePlayerAnimator = ({
         const playerMovement = playerMovementState.getState();
 
         if (
+            playerMovement === movementStates.dip ||
+            playerMovement === movementStates.dive
+        ) {
+
+            const nextPosition = playerPosition.clone();
+            playerMotion.apply(nextPosition, true);
+
+            const diveRotation = playerPosition.findAngleBetweenPosition(nextPosition) + 90;
+            const spriteOptions = sprite.getOptions();
+            spriteOptions.rotation = lerp(spriteOptions.rotation, diveRotation, 0.001);
+            sprite.setOptions(spriteOptions);
+        } else {
+            const spriteOptions = sprite.getOptions();
+            spriteOptions.rotation = lerp(spriteOptions, 0, 0.00001);
+            sprite.setOptions(spriteOptions);
+        }
+
+        if (
             previousDirection === playerDirection &&
             previousMovement === playerMovement &&
             previousBackwards === isMovingBackwards()
@@ -62,15 +88,25 @@ export const usePlayerAnimator = ({
         previousMovement = playerMovement;
         previousBackwards = isMovingBackwards();
 
-        switch(playerMovementState.getState()) {
+        switch(playerMovement) {
             case movementStates.idle:
                 setSprite('idle');
                 break;
             case movementStates.walk:
-                setSprite('walk');
+                setSprite('walk', isMovingBackwards());
                 break;
             case movementStates.run:
-                setSprite('run');
+                setSprite('run', isMovingBackwards());
+                break;
+            case movementStates.dip:
+                setSprite('dip');
+                break;
+            case movementStates.dive:
+                setSprite('dive');
+                break;
+            case movementStates.recover:
+                setSprite('recover');
+                sprite.registerFrameEvent(3, () => playerBalance.setOffBalance(false));
                 break;
         }
     };
