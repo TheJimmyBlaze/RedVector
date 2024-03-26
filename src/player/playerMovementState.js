@@ -4,7 +4,9 @@ export const movementStates = {
     idle: 'player.state.movement.idle',
     walk: 'player.state.movement.walk',
     run: 'player.state.movement.run',
-    dive: 'player.state.movement.dive'
+    dip: 'player.state.movement.dip',
+    dive: 'player.state.movement.dive',
+    recover: 'player.state.movement.recover'
 };
 
 export const usePlayerMovementState = ({
@@ -44,7 +46,22 @@ export const usePlayerMovementState = ({
     //Dive
     machine.addTransition({
         exitState: movementStates.run,
+        enterState: movementStates.dip,
+        condition: () => false
+    });
+    machine.addTransition({
+        exitState: movementStates.dip,
         enterState: movementStates.dive,
+        condition: () => true
+    });
+    machine.addTransition({
+        exitState: movementStates.dive,
+        enterState: movementStates.recover,
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkSpeed
+    });
+    machine.addTransition({
+        exitState: movementStates.recover,
+        enterState: movementStates.idle,
         condition: () => false
     });
 
