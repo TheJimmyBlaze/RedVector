@@ -65,7 +65,7 @@ export const usePlayerAnimator = ({
             sprite.setOptions(spriteOptions);
         } else {
             const spriteOptions = sprite.getOptions();
-            spriteOptions.rotation = lerp(spriteOptions, 0, 0.00001);
+            spriteOptions.rotation = 0;
             sprite.setOptions(spriteOptions);
         }
 
