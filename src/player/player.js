@@ -20,8 +20,8 @@ export const usePlayer = ({
     const walkSpeed = 10;
     const sprintSpeed = 20;
 
-    const diveDrag = 0.1;
-    const diveSpeed = 500;
+    const diveDrag = 0.12;
+    const diveSpeed = 400;
 
     const playerPosition = usePosition({});
     const aimPosition = usePosition({});

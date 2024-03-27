@@ -22,6 +22,8 @@ export const usePlayerController = ({
         if (playerMovementState.isDiving()) return;
         if (input.wasPressed(binds.dive)) {
 
+            playerMotion.stop();
+
             playerMotion.setDrag(diveDrag);
             playerMotion.setAcceleration(diveSpeed);
 
