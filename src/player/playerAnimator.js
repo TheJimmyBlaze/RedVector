@@ -1,7 +1,6 @@
 import {
     useSpriteSheet,
     useSpriteSheetRun,
-    usePosition,
     lerp
 } from 'titanium';
 
@@ -60,7 +59,7 @@ export const usePlayerAnimator = ({
 
         if (playerMovement === movementStates.dodge) {
 
-            const diveRotation = 90 * (playerMotion.getMotion().velocityX >= 0 || -1);
+            const diveRotation = 120 * (playerMotion.getMotion().velocityX >= 0 || -1);
             const spriteOptions = sprite.getOptions();
             spriteOptions.rotation = lerp(spriteOptions.rotation, spriteOptions.rotation + diveRotation, 0.0001);
             sprite.setOptions(spriteOptions);

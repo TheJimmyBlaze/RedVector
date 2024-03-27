@@ -27,36 +27,36 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.idle,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= walkSpeed
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 10
     });
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.idle,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkSpeed
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 10
     });
 
     //Run
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.run,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= sprintSpeed * 3.5
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 100
     });
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < sprintSpeed * 3.5
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 100
     });
 
     //Dive
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.dodge,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= sprintSpeed * 7
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 350
     });
     machine.addTransition({
         exitState: movementStates.dodge,
         enterState: movementStates.recover,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkSpeed
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 100
     });
 
     return {

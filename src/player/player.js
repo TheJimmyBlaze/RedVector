@@ -16,11 +16,11 @@ export const usePlayer = ({
     drawCamera
 }) => {
 
-    const groundDrag = 0.2;
+    const groundDrag = 20;
     const walkSpeed = 10;
     const sprintSpeed = 20;
 
-    const diveDrag = 0.12;
+    const diveDrag = 5;
     const diveSpeed = 400;
 
     const playerPosition = usePosition({});
