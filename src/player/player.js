@@ -11,7 +11,6 @@ import { usePlayerCameraController } from './playerCameraController';
 import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
-import { useBalance } from '../motion/balance';
 
 export const usePlayer = ({
     drawCamera
@@ -22,7 +21,7 @@ export const usePlayer = ({
     const sprintSpeed = 20;
 
     const diveDrag = 0.1;
-    const diveSpeed = 200;
+    const diveSpeed = 500;
 
     const playerPosition = usePosition({});
     const aimPosition = usePosition({});
@@ -31,13 +30,24 @@ export const usePlayer = ({
         acceleration: walkSpeed,
         drag: groundDrag
     });
-    const playerBalance = useBalance();
+
+    const playerDirectionState = usePlayerDirectionState({
+        playerPosition,
+        aimPosition
+    });
+
+    const playerMovementState = usePlayerMovementState({
+        playerMotion,
+        walkSpeed,
+        sprintSpeed
+    });
 
     const playerController = usePlayerController({
         aimPosition,
         drawCamera,
         playerMotion,
-        playerBalance,
+        playerDirectionState,
+        playerMovementState,
         groundDrag,
         walkSpeed,
         sprintSpeed,
@@ -67,23 +77,9 @@ export const usePlayer = ({
         collider: playerCollider
     });
 
-    const playerDirectionState = usePlayerDirectionState({
-        playerPosition,
-        aimPosition
-    });
-
-    const playerMovementState = usePlayerMovementState({
-        playerMotion,
-        playerBalance,
-        walkSpeed,
-        sprintSpeed,
-        diveSpeed
-    });
-
     const playerAnimator = usePlayerAnimator({
         playerPosition,
         playerMotion,
-        playerBalance,
         playerDirectionState,
         playerMovementState,
         drawCamera

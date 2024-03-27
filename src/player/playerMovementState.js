@@ -4,22 +4,24 @@ export const movementStates = {
     idle: 'player.state.movement.idle',
     walk: 'player.state.movement.walk',
     run: 'player.state.movement.run',
-    dip: 'player.state.movement.dip',
-    dive: 'player.state.movement.dive',
+    dodge: 'player.state.movement.doge',
     recover: 'player.state.movement.recover'
 };
 
 export const usePlayerMovementState = ({
     playerMotion,
-    playerBalance,
     walkSpeed,
-    sprintSpeed,
-    diveSpeed
+    sprintSpeed
 }) => {
 
     const machine = useFiniteStateMachine({
         initialState: movementStates.idle
     });
+
+    const isDiving = () => (
+        machine.getState() === movementStates.dodge ||
+        machine.getState() === movementStates.recover
+    );
 
     //Walk
     machine.addTransition({
@@ -48,26 +50,17 @@ export const usePlayerMovementState = ({
     //Dive
     machine.addTransition({
         exitState: movementStates.run,
-        enterState: movementStates.dip,
+        enterState: movementStates.dodge,
         condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= sprintSpeed * 7
     });
     machine.addTransition({
-        exitState: movementStates.dip,
-        enterState: movementStates.dive,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < sprintSpeed * 3.5
-    });
-    machine.addTransition({
-        exitState: movementStates.dive,
+        exitState: movementStates.dodge,
         enterState: movementStates.recover,
         condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkSpeed
     });
-    machine.addTransition({
-        exitState: movementStates.recover,
-        enterState: movementStates.idle,
-        condition: () => !playerBalance.isOffBalance()
-    });
 
     return {
+        isDiving,
         ...machine
     };
 };

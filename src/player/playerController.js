@@ -1,11 +1,13 @@
 import { input } from 'titanium';
 import { binds } from '../keyBinds';
+import { directionStates } from './playerDirectionState';
 
 export const usePlayerController = ({
     aimPosition,
     drawCamera,
     playerMotion,
-    playerBalance,
+    playerDirectionState,
+    playerMovementState,
     groundDrag,
     walkSpeed,
     sprintSpeed,
@@ -17,15 +19,23 @@ export const usePlayerController = ({
 
         aimPosition.moveToPosition(input.getMousePosition(drawCamera));
 
-        if (playerBalance.isOffBalance()) return;
-        if (input.isDown(binds.dive)) {
+        if (playerMovementState.isDiving()) return;
+        if (input.wasPressed(binds.dive)) {
 
-            playerBalance.setOffBalance(true);
             playerMotion.setDrag(diveDrag);
             playerMotion.setAcceleration(diveSpeed);
-            playerMotion.accelerateX();
-            playerMotion.decelerateY();
-            //playerMotion.accelerateY();
+
+            input.isDown(binds.moveUp) && playerMotion.decelerateY();
+            input.isDown(binds.moveDown) && playerMotion.accelerateY();
+            input.isDown(binds.moveRight) && playerMotion.accelerateX();
+            input.isDown(binds.moveLeft) && playerMotion.decelerateX();
+
+            const {potentialX, potentialY} = playerMotion.getPotential();
+            if (!potentialX && !potentialY) {
+                playerDirectionState.getState() === directionStates.right &&
+                    playerMotion.accelerateX() ||
+                    playerMotion.decelerateX();
+            }
 
             return;
         }
