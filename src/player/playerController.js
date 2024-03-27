@@ -22,21 +22,18 @@ export const usePlayerController = ({
         if (playerMovementState.isDiving()) return;
         if (input.wasPressed(binds.dive)) {
 
-            playerMotion.stop();
-
             playerMotion.setDrag(diveDrag);
-            playerMotion.setAcceleration(diveSpeed);
 
-            input.isDown(binds.moveUp) && playerMotion.decelerateY();
-            input.isDown(binds.moveDown) && playerMotion.accelerateY();
-            input.isDown(binds.moveRight) && playerMotion.accelerateX();
-            input.isDown(binds.moveLeft) && playerMotion.decelerateX();
+            input.isDown(binds.moveUp) && playerMotion.impulseY(-diveSpeed);
+            input.isDown(binds.moveDown) && playerMotion.impulseY(diveSpeed);
+            input.isDown(binds.moveLeft) && playerMotion.impulseX(-diveSpeed);
+            input.isDown(binds.moveRight) && playerMotion.impulseX(diveSpeed);
 
             const {potentialX, potentialY} = playerMotion.getPotential();
             if (!potentialX && !potentialY) {
                 playerDirectionState.getState() === directionStates.right &&
-                    playerMotion.accelerateX() ||
-                    playerMotion.decelerateX();
+                    playerMotion.impulseX(diveSpeed) ||
+                    playerMotion.impulseX(-diveSpeed);
             }
 
             return;
@@ -47,8 +44,8 @@ export const usePlayerController = ({
 
         input.isDown(binds.moveUp) && playerMotion.decelerateY();
         input.isDown(binds.moveDown) && playerMotion.accelerateY();
-        input.isDown(binds.moveRight) && playerMotion.accelerateX();
         input.isDown(binds.moveLeft) && playerMotion.decelerateX();
+        input.isDown(binds.moveRight) && playerMotion.accelerateX();
     };
 
     return {

@@ -27,36 +27,36 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.idle,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 10
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 1
     });
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.idle,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 10
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 1
     });
 
     //Run
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.run,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 100
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 40
     });
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 100
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 40
     });
 
     //Dive
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.dodge,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 350
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= 80
     });
     machine.addTransition({
         exitState: movementStates.dodge,
         enterState: movementStates.recover,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 100
+        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < 40
     });
 
     return {
