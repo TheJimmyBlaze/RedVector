@@ -15,27 +15,30 @@ export const usePlayerController = ({
     diveSpeed
 }) => {
 
+    const dive = () => {
+
+        playerMotion.setDrag(diveDrag);
+
+        input.isDown(binds.moveUp) && playerMotion.impulseY(-diveSpeed);
+        input.isDown(binds.moveDown) && playerMotion.impulseY(diveSpeed);
+        input.isDown(binds.moveLeft) && playerMotion.impulseX(-diveSpeed);
+        input.isDown(binds.moveRight) && playerMotion.impulseX(diveSpeed);
+
+        const {potentialX, potentialY} = playerMotion.getPotential();
+        if (!potentialX && !potentialY) {
+            playerDirectionState.getState() === directionStates.right &&
+                playerMotion.impulseX(diveSpeed) ||
+                playerMotion.impulseX(-diveSpeed);
+        }
+    };
+
     const update = () => {
 
         aimPosition.moveToPosition(input.getMousePosition(drawCamera));
 
         if (playerMovementState.isDiving()) return;
         if (input.wasPressed(binds.dive)) {
-
-            playerMotion.setDrag(diveDrag);
-
-            input.isDown(binds.moveUp) && playerMotion.impulseY(-diveSpeed);
-            input.isDown(binds.moveDown) && playerMotion.impulseY(diveSpeed);
-            input.isDown(binds.moveLeft) && playerMotion.impulseX(-diveSpeed);
-            input.isDown(binds.moveRight) && playerMotion.impulseX(diveSpeed);
-
-            const {potentialX, potentialY} = playerMotion.getPotential();
-            if (!potentialX && !potentialY) {
-                playerDirectionState.getState() === directionStates.right &&
-                    playerMotion.impulseX(diveSpeed) ||
-                    playerMotion.impulseX(-diveSpeed);
-            }
-
+            dive();
             return;
         }
 
