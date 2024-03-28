@@ -1,6 +1,7 @@
 import {
     useSpriteSheet,
     useSpriteSheetRun,
+    useSpriteOptions,
     lerp
 } from 'titanium';
 
@@ -37,18 +38,19 @@ export const usePlayerAnimator = ({
     });
 
     let sprite = null;
+    const spriteOptions = useSpriteOptions({
+        offsetY: 4
+    });
     const setSprite = (name, reverse = false) => {
+
+        spriteOptions.setReverse(reverse);
+        spriteOptions.setFlip(playerDirectionState.isLeft());
 
         sprite = sprites[name]({
             position: playerPosition,
             camera: drawCamera,
-            options: {
-                offsetY: 4,
-                reverse,
-                flip: playerDirectionState.isLeft(),
-                rotation: sprite?.getOptions().rotation || 0
-            }
-        })
+            options: spriteOptions
+        });
     };
     setSprite('idle');
     
@@ -60,13 +62,9 @@ export const usePlayerAnimator = ({
         if (playerMovement === movementStates.dodge) {
 
             const diveRotation = 120 * (playerMotion.getMotion().velocityX >= 0 || -1);
-            const spriteOptions = sprite.getOptions();
-            spriteOptions.rotation = lerp(spriteOptions.rotation, spriteOptions.rotation + diveRotation, 0.0001);
-            sprite.setOptions(spriteOptions);
+            spriteOptions.setRotation(lerp(spriteOptions.getRotation(), spriteOptions.getRotation() + diveRotation, 0.0001));
         } else {
-            const spriteOptions = sprite.getOptions();
-            spriteOptions.rotation = 0;
-            sprite.setOptions(spriteOptions);
+            spriteOptions.setRotation(0);
         }
 
         if (
