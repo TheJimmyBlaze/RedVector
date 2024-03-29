@@ -7,8 +7,8 @@ import {
     lerp
 } from 'titanium';
 
-import { binds } from '../../../keyBinds';
-import { movementStates } from '../../../player/playerMovementState';
+import { binds } from '../../keyBinds';
+import { movementStates } from '../../player/playerMovementState';
 
 export const useRifle = ({
     position,
@@ -30,7 +30,7 @@ export const useRifle = ({
     const sprites = useSpriteSheet({
         imagePath: 'sprites/weapon_ranged_rifle_sheet.png',
         sliceWidth: 48,
-        sliceHeight: 32,
+        sliceHeight: 16,
         runs: [
             useSpriteSheetRun({name: 'rest'}),
             useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 24})

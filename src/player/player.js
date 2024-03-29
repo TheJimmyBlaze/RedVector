@@ -11,7 +11,7 @@ import { usePlayerCameraController } from './playerCameraController';
 import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
-import { useRifle } from '../weapon/ranged/rifle/rifle';
+import { useRifle } from '../weapon/ranged/rifle';
 
 export const usePlayer = ({
     drawCamera
