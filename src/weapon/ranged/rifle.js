@@ -3,8 +3,7 @@ import {
     useSpriteSheetRun,
     useSpriteOptions,
     useFiniteStateMachine,
-    input,
-    lerp
+    input
 } from 'titanium';
 
 import { binds } from '../../keyBinds';
@@ -98,7 +97,7 @@ export const useRifle = ({
     };
 
     const draw = () => {
-        sprite?.actions.draw();
+        sprite.actions.draw();
     };
 
     return {
