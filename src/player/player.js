@@ -17,24 +17,13 @@ export const usePlayer = ({
     drawCamera
 }) => {
 
-    const groundDrag = 10;
-    const walkSpeed = 250;
-    const sprintSpeed = 500;
-
-    const diveDrag = 5;
-    const diveSpeed = 250;
-
     const playerPosition = usePosition({});
     const shoulderPosition = usePosition({
         y: -2,
         parent: playerPosition
     });
     const aimPosition = usePosition({});
-
-    const playerMotion = useMotion({
-        acceleration: walkSpeed,
-        drag: groundDrag
-    });
+    const playerMotion = useMotion({});
 
     const playerDirectionState = usePlayerDirectionState({
         playerPosition,
@@ -42,9 +31,7 @@ export const usePlayer = ({
     });
 
     const playerMovementState = usePlayerMovementState({
-        playerMotion,
-        walkSpeed,
-        sprintSpeed
+        playerMotion
     });
 
     const playerController = usePlayerController({
@@ -52,12 +39,7 @@ export const usePlayer = ({
         drawCamera,
         playerMotion,
         playerDirectionState,
-        playerMovementState,
-        groundDrag,
-        walkSpeed,
-        sprintSpeed,
-        diveDrag,
-        diveSpeed
+        playerMovementState
     });
 
     const playerCameraController = usePlayerCameraController({

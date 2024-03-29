@@ -8,7 +8,6 @@ import { useUiCamera } from './camera/uiCamera';
 
 import { usePlayer } from './player/player';
 
-import { useInputTest } from './debug/inputTest';
 import { useTestProp } from './debug/testProp';
 
 const game = useGame({});
@@ -33,9 +32,6 @@ registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera}));
 registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera}));
 
 registry.register(usePlayer({drawCamera: gameCamera}));
-
-// registry.register(useInputTest());
-// registry.register(useInputTest());
 
 console.log(registry.stringify());
 

@@ -82,10 +82,10 @@ export const useRifle = ({
 
         if (movementState.getState() === movementStates.dodge) {
 
-            spriteOptions.setOpacity(lerp(spriteOptions.getOpacity(), 0, 0.0000001));
+            spriteOptions.setOpacity(0);
             return;
         }
-        spriteOptions.setOpacity(lerp(spriteOptions.getOpacity(), 1, 0.0000001));
+        spriteOptions.setOpacity(1);
 
         const rotation = position.findAngleBetweenPosition(aimPosition) 
             - 180 * Number(directionState.isLeft());

@@ -7,13 +7,15 @@ export const usePlayerController = ({
     drawCamera,
     playerMotion,
     playerDirectionState,
-    playerMovementState,
-    groundDrag,
-    walkSpeed,
-    sprintSpeed,
-    diveDrag,
-    diveSpeed
+    playerMovementState
 }) => {
+
+    const groundDrag = 10;
+    const walkSpeed = 300;
+    const sprintSpeed = 600;
+
+    const diveDrag = 5;
+    const diveSpeed = 250;
 
     const dive = () => {
 
