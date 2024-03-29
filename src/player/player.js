@@ -94,6 +94,7 @@ export const usePlayer = ({
         position: shoulderPosition,
         aimPosition,
         directionState: playerDirectionState,
+        movementState: playerMovementState,
         drawCamera
     });
 

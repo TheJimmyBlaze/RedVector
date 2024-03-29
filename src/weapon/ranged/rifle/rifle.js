@@ -2,13 +2,17 @@ import {
     useSpriteSheet,
     useSpriteSheetRun,
     useSpriteOptions,
-    useFiniteStateMachine
+    useFiniteStateMachine,
+    lerp
 } from 'titanium';
+
+import { movementStates } from '../../../player/playerMovementState';
 
 export const useRifle = ({
     position,
     aimPosition,
     directionState,
+    movementState,
     drawCamera
 }) => {
 
@@ -48,14 +52,28 @@ export const useRifle = ({
     const update = () => {
 
         spriteOptions.setFlip(directionState.isLeft());
+        spriteOptions.setOpacity(1);
 
-        let rotationAngle = position.findAngleBetweenPosition(aimPosition) 
+        if (movementState.getState() === movementStates.run) {
+            
+            const rotation = 45 - 90 * Number(directionState.isLeft());
+            spriteOptions.setRotation(lerp(spriteOptions.getRotation(), rotation, 0.0000001));
+
+            return;
+        }
+
+        if (movementState.getState() === movementStates.dodge) {
+            spriteOptions.setOpacity(0);
+            return;
+        }
+
+        const rotation = position.findAngleBetweenPosition(aimPosition) 
             - 180 * Number(directionState.isLeft());
-        spriteOptions.setRotation(rotationAngle);
+            spriteOptions.setRotation(lerp(spriteOptions.getRotation(), rotation, 0.0000001));
     };
 
     const draw = () => {
-        sprite.actions.draw();
+        sprite?.actions.draw();
     };
 
     return {
