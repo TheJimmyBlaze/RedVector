@@ -19,10 +19,6 @@ export const usePlayerAnimator = ({
         playerDirectionState.isLeft() && playerMotion.getMotion().velocityX > 0 ||
         playerDirectionState.isRight() && playerMotion.getMotion().velocityX < 0
     );
-
-    let previousDirection = playerDirectionState.getState();
-    let previousMovement = playerMovementState.getState();
-    let previousBackwards = isMovingBackwards();
     
     const sprites = useSpriteSheet({
         imagePath: 'sprites/character_sheet.png',
@@ -44,6 +40,8 @@ export const usePlayerAnimator = ({
     
     const setSprite = name => {
 
+        if (sprite?.name === name) return;
+
         sprite = sprites[name]({
             position: playerPosition,
             camera: drawCamera,
@@ -54,10 +52,7 @@ export const usePlayerAnimator = ({
     
     const update = () => {
 
-        const playerDirection = playerDirectionState.getState();
-        const playerMovement = playerMovementState.getState();
-
-        if (playerMovement === movementStates.dodge) {
+        if (playerMovementState.getState() === movementStates.dodge) {
 
             const diveRotation = 120 * (playerMotion.getMotion().velocityX >= 0 || -1);
             spriteOptions.setRotation(lerp(spriteOptions.getRotation(), spriteOptions.getRotation() + diveRotation, 0.0001));
@@ -65,19 +60,9 @@ export const usePlayerAnimator = ({
             spriteOptions.setRotation(0);
         }
 
-        if (
-            previousDirection === playerDirection &&
-            previousMovement === playerMovement &&
-            previousBackwards === isMovingBackwards()
-        ) return;
-
-        previousDirection = playerDirection;
-        previousMovement = playerMovement;
-        previousBackwards = isMovingBackwards();
-
         spriteOptions.setFlip(playerDirectionState.isLeft());
 
-        switch(playerMovement) {
+        switch(playerMovementState.getState()) {
             case movementStates.idle:
                 setSprite('idle');
                 break;

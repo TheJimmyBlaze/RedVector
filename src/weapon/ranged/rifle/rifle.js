@@ -3,9 +3,11 @@ import {
     useSpriteSheetRun,
     useSpriteOptions,
     useFiniteStateMachine,
+    input,
     lerp
 } from 'titanium';
 
+import { binds } from '../../../keyBinds';
 import { movementStates } from '../../../player/playerMovementState';
 
 export const useRifle = ({
@@ -31,7 +33,7 @@ export const useRifle = ({
         sliceHeight: 32,
         runs: [
             useSpriteSheetRun({name: 'rest'}),
-            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 12})
+            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 24})
         ]
     });
 
@@ -41,6 +43,9 @@ export const useRifle = ({
     });
 
     const setSprite = name => {
+
+        if (sprite?.name === name) return;
+
         sprite = sprites[name]({
             position,
             camera: drawCamera,
@@ -48,10 +53,32 @@ export const useRifle = ({
         });
     };
     setSprite('rest');
+    
+    const fire = () => {
 
-    const update = () => {
+        if (
+            input.isDown(binds.weaponAttack) &&
+            stateMachine.getState() === states.rest &&
+            movementState.getState() !== movementStates.dodge
+        ) {
+            stateMachine.setState(states.fire);
+            //TODO: shoot bullets :)
+        }
+    };
+
+    const animate = () => {
 
         spriteOptions.setFlip(directionState.isLeft());
+
+        switch(stateMachine.getState()) {
+            case states.rest:
+                setSprite('rest');
+                break;
+            case states.fire:
+                setSprite('fire');
+                sprite.registerFrameEvent(2, () => stateMachine.setState(states.rest))
+                break;
+        }
 
         if (movementState.getState() === movementStates.dodge) {
 
@@ -63,6 +90,11 @@ export const useRifle = ({
         const rotation = position.findAngleBetweenPosition(aimPosition) 
             - 180 * Number(directionState.isLeft());
         spriteOptions.setRotation(rotation);
+    };
+
+    const update = () => {
+        fire();
+        animate();
     };
 
     const draw = () => {
