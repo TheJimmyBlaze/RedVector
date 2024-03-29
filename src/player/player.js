@@ -11,6 +11,7 @@ import { usePlayerCameraController } from './playerCameraController';
 import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
+import { useRifle } from '../weapon/ranged/rifle/rifle';
 
 export const usePlayer = ({
     drawCamera
@@ -24,6 +25,10 @@ export const usePlayer = ({
     const diveSpeed = 250;
 
     const playerPosition = usePosition({});
+    const shoulderPosition = usePosition({
+        y: -2,
+        parent: playerPosition
+    });
     const aimPosition = usePosition({});
 
     const playerMotion = useMotion({
@@ -85,6 +90,13 @@ export const usePlayer = ({
         drawCamera
     });
 
+    const playerWeapon = useRifle({
+        position: shoulderPosition,
+        aimPosition,
+        directionState: playerDirectionState,
+        drawCamera
+    });
+
     const entity = useEntity({
         components: {
             playerPosition,
@@ -95,7 +107,8 @@ export const usePlayer = ({
             playerRigidBody,
             playerDirectionState,
             playerMovementState,
-            playerAnimator
+            playerAnimator,
+            playerWeapon
         }
     });
 

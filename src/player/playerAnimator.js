@@ -41,10 +41,8 @@ export const usePlayerAnimator = ({
     const spriteOptions = useSpriteOptions({
         offsetY: 4
     });
-    const setSprite = (name, reverse = false) => {
-
-        spriteOptions.setReverse(reverse);
-        spriteOptions.setFlip(playerDirectionState.isLeft());
+    
+    const setSprite = name => {
 
         sprite = sprites[name]({
             position: playerPosition,
@@ -77,15 +75,19 @@ export const usePlayerAnimator = ({
         previousMovement = playerMovement;
         previousBackwards = isMovingBackwards();
 
+        spriteOptions.setFlip(playerDirectionState.isLeft());
+
         switch(playerMovement) {
             case movementStates.idle:
                 setSprite('idle');
                 break;
             case movementStates.walk:
-                setSprite('walk', isMovingBackwards());
+                setSprite('walk');
+                spriteOptions.setReverse(isMovingBackwards());
                 break;
             case movementStates.run:
-                setSprite('run', isMovingBackwards());
+                setSprite('run');
+                spriteOptions.setReverse(isMovingBackwards());
                 break;
             case movementStates.dodge:
                 setSprite('dodge');
