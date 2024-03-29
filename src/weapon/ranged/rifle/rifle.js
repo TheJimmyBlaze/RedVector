@@ -37,7 +37,7 @@ export const useRifle = ({
 
     let sprite = null;
     const spriteOptions = useSpriteOptions({
-        offsetX: -16,
+        offsetX: -16
     });
 
     const setSprite = name => {
@@ -52,24 +52,17 @@ export const useRifle = ({
     const update = () => {
 
         spriteOptions.setFlip(directionState.isLeft());
-        spriteOptions.setOpacity(1);
-
-        if (movementState.getState() === movementStates.run) {
-            
-            const rotation = 45 - 90 * Number(directionState.isLeft());
-            spriteOptions.setRotation(lerp(spriteOptions.getRotation(), rotation, 0.0000001));
-
-            return;
-        }
 
         if (movementState.getState() === movementStates.dodge) {
-            spriteOptions.setOpacity(0);
+
+            spriteOptions.setOpacity(lerp(spriteOptions.getOpacity(), 0, 0.0000001));
             return;
         }
+        spriteOptions.setOpacity(lerp(spriteOptions.getOpacity(), 1, 0.0000001));
 
         const rotation = position.findAngleBetweenPosition(aimPosition) 
             - 180 * Number(directionState.isLeft());
-            spriteOptions.setRotation(lerp(spriteOptions.getRotation(), rotation, 0.0000001));
+        spriteOptions.setRotation(rotation);
     };
 
     const draw = () => {
