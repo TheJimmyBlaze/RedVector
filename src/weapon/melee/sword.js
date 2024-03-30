@@ -28,19 +28,19 @@ export const useSword = ({
 
     const sprites = useSpriteSheet({
         imagePath: 'sprites/weapon_melee_sword_sheet.png',
-        sliceWidth: 16,
-        sliceHeight: 32,
+        sliceWidth: 64,
+        sliceHeight: 48,
         runs: [
-            useSpriteSheetRun({name: 'sword'})
+            useSpriteSheetRun({name: 'rest'}),
+            useSpriteSheetRun({name: 'swoosh', x: 1, spriteCount: 4, fps: 12})
         ]
     });
 
     const spriteOptions = useSpriteOptions({
-        offsetY: 12,
-        offsetX: 4
+        offsetY: -16
     });
 
-    const sprite = sprites.sword({
+    const sprite = sprites.rest({
         position,
         camera: drawCamera,
         options: spriteOptions
