@@ -43,13 +43,14 @@ export const useRifle = ({
 
     const setSprite = name => {
 
-        if (sprite?.name === name) return;
+        if (sprite?.name === name) return false;
 
         sprite = sprites[name]({
             position,
             camera: drawCamera,
             options: spriteOptions
         });
+        return true;
     };
     setSprite('rest');
     
@@ -74,8 +75,9 @@ export const useRifle = ({
                 setSprite('rest');
                 break;
             case states.fire:
-                setSprite('fire');
-                sprite.registerFrameEvent(2, () => stateMachine.setState(states.rest))
+                if (setSprite('fire')) {
+                    sprite.registerFrameEvent(2, () => stateMachine.setState(states.rest))
+                }
                 break;
         }
 
