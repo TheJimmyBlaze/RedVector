@@ -12,24 +12,20 @@ import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
 
+import { useRifle } from '../weapon/ranged/rifle';
+import { useSword } from '../weapon/melee/sword';
+
 export const usePlayer = ({
     drawCamera
 }) => {
 
-    const groundDrag = 10;
-    const walkSpeed = 250;
-    const sprintSpeed = 500;
-
-    const diveDrag = 5;
-    const diveSpeed = 250;
-
     const playerPosition = usePosition({});
-    const aimPosition = usePosition({});
-
-    const playerMotion = useMotion({
-        acceleration: walkSpeed,
-        drag: groundDrag
+    const shoulderPosition = usePosition({
+        y: -2,
+        parent: playerPosition
     });
+    const aimPosition = usePosition({});
+    const playerMotion = useMotion({});
 
     const playerDirectionState = usePlayerDirectionState({
         playerPosition,
@@ -37,9 +33,7 @@ export const usePlayer = ({
     });
 
     const playerMovementState = usePlayerMovementState({
-        playerMotion,
-        walkSpeed,
-        sprintSpeed
+        playerMotion
     });
 
     const playerController = usePlayerController({
@@ -47,12 +41,7 @@ export const usePlayer = ({
         drawCamera,
         playerMotion,
         playerDirectionState,
-        playerMovementState,
-        groundDrag,
-        walkSpeed,
-        sprintSpeed,
-        diveDrag,
-        diveSpeed
+        playerMovementState
     });
 
     const playerCameraController = usePlayerCameraController({
@@ -85,6 +74,14 @@ export const usePlayer = ({
         drawCamera
     });
 
+    const playerWeapon = useSword({
+        position: shoulderPosition,
+        aimPosition,
+        directionState: playerDirectionState,
+        movementState: playerMovementState,
+        drawCamera
+    });
+
     const entity = useEntity({
         components: {
             playerPosition,
@@ -95,7 +92,8 @@ export const usePlayer = ({
             playerRigidBody,
             playerDirectionState,
             playerMovementState,
-            playerAnimator
+            playerAnimator,
+            playerWeapon
         }
     });
 
