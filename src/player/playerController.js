@@ -7,7 +7,8 @@ export const usePlayerController = ({
     drawCamera,
     playerMotion,
     playerDirectionState,
-    playerMovementState
+    playerMovementState,
+    setPlayerWeapon
 }) => {
 
     const groundDrag = 10;
@@ -37,6 +38,9 @@ export const usePlayerController = ({
     const update = () => {
 
         aimPosition.moveToPosition(input.getMousePosition(drawCamera));
+        if (input.wasPressed(binds.weaponOne)) {
+            
+        }
 
         if (playerMovementState.isDiving()) return;
         if (input.wasPressed(binds.dive)) {

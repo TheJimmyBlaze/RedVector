@@ -14,6 +14,7 @@ import { usePlayerAnimator } from './playerAnimator';
 
 import { useRifle } from '../weapon/ranged/rifle';
 import { useSword } from '../weapon/melee/sword';
+import { usePlayerWeapon } from './playerWeapon';
 
 export const usePlayer = ({
     drawCamera
@@ -74,7 +75,7 @@ export const usePlayer = ({
         drawCamera
     });
 
-    const playerWeapon = useSword({
+    const playerWeapon = usePlayerWeapon({
         position: shoulderPosition,
         aimPosition,
         directionState: playerDirectionState,
