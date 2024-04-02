@@ -32,13 +32,13 @@ export const useRifle = ({
         sliceHeight: 16,
         runs: [
             useSpriteSheetRun({name: 'rest'}),
-            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 24})
+            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 48})
         ]
     });
 
     let sprite = null;
     const spriteOptions = useSpriteOptions({
-        offsetX: -16
+        offsetX: -16,
     });
 
     const setSprite = name => {
@@ -69,6 +69,7 @@ export const useRifle = ({
     const animate = () => {
 
         spriteOptions.setFlip(directionState.isLeft());
+        spriteOptions.setZIndex(-1 * directionState.isLeft());
 
         switch(stateMachine.getState()) {
             case states.rest:
