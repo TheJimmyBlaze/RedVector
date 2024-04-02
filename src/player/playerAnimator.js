@@ -25,11 +25,11 @@ export const usePlayerAnimator = ({
         sliceWidth: 32,
         sliceHeight: 32,
         runs: [
-            useSpriteSheetRun({name: 'idle'}),
-            useSpriteSheetRun({name: 'walk', y: 1, spriteCount: 8, fps: 12}),
-            useSpriteSheetRun({name: 'run', y: 2, spriteCount: 8, fps: 12}),
-            useSpriteSheetRun({name: 'dodge', y: 3}),
-            useSpriteSheetRun({name: 'recover', x: 4, y: 3, spriteCount: 4, fps: 12})
+            useSpriteSheetRun({name: 'idle', x: 7, y: 2}),
+            useSpriteSheetRun({name: 'walk', spriteCount: 8, fps: 12}),
+            useSpriteSheetRun({name: 'run', y: 1, spriteCount: 8, fps: 12}),
+            useSpriteSheetRun({name: 'dodge', y: 2}),
+            useSpriteSheetRun({name: 'recover', x: 4, y: 2, spriteCount: 4, fps: 12})
         ]
     });
 
