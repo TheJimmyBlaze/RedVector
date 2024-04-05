@@ -32,7 +32,7 @@ export const useRifle = ({
         sliceHeight: 16,
         runs: [
             useSpriteSheetRun({name: 'rest'}),
-            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 48})
+            useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 24})
         ]
     });
 

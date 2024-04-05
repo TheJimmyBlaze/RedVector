@@ -8,7 +8,7 @@ import { useUiCamera } from './camera/uiCamera';
 
 import { usePlayer } from './player/player';
 
-import { useTestProp } from './debug/testProp';
+import { useLobby } from './level/lobby';
 
 const game = useGame({});
 
@@ -26,10 +26,7 @@ registry.register(uiCamera);
 const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera});
 registry.register(performanceProfiler);
 
-registry.register(useTestProp({x: 50, y: -125, drawCamera: gameCamera}));
-registry.register(useTestProp({x: -50, y: -50, drawCamera: gameCamera}));
-registry.register(useTestProp({x: -100, y: -100, drawCamera: gameCamera}));
-registry.register(useTestProp({x: 100, y: 100, drawCamera: gameCamera}));
+registry.register(useLobby({x: 0, y: 0, drawCamera: gameCamera}));
 
 registry.register(usePlayer({drawCamera: gameCamera}));
 

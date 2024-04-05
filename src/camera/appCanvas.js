@@ -3,8 +3,7 @@ import { useEntity, useCanvas } from 'titanium';
 export const useAppCanvas = () => {
 
     const appCanvas = useCanvas({
-        elementId: 'appCanvas', 
-        backgroundColour: 'SeaGreen'
+        elementId: 'appCanvas'
     });
 
     const entity = useEntity({
