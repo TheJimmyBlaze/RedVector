@@ -1,4 +1,10 @@
-import { useEntity, usePosition, useSpriteSheet, useSpriteSheetRun } from 'titanium';
+import { 
+    useEntity, 
+    usePosition, 
+    useSpriteSheet, 
+    useSpriteSheetRun, 
+    useSpriteOptions
+ } from 'titanium';
 
 export const useLobby = ({
     x, y,
@@ -13,12 +19,15 @@ export const useLobby = ({
         sliceHeight: 1024,
         runs: [
             useSpriteSheetRun({
-                name: 'block'
+                name: 'sprite'
             })
         ]
-    }).block({
+    }).sprite({
         position,
-        camera: drawCamera
+        camera: drawCamera,
+        options: useSpriteOptions({
+            zIndex: -1000
+        })
     });
 
     const entity = useEntity({
