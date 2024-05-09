@@ -5,6 +5,7 @@ import {
     useSpriteSheetRun, 
     useSpriteOptions
  } from 'titanium';
+import { useRectTerrainCollider } from './colliders/rectTerrainCollider';
 
 export const useLobby = ({
     x, y,
@@ -30,10 +31,17 @@ export const useLobby = ({
         })
     });
 
+    const testCollider = useRectTerrainCollider({
+        position: usePosition({x: 0, y: 100}),
+        width: 64, height: 64,
+        drawCamera
+    });
+
     const entity = useEntity({
         components: {
             position,
-            sprite
+            sprite,
+            testCollider
         }
     });
 
