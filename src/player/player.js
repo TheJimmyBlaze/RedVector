@@ -51,13 +51,14 @@ export const usePlayer = ({
     });
 
     const colliderPosition = usePosition({
-        y: -16,
+        y: -4,
         parent: playerPosition
     });
 
     const playerCollider = useCircleCollider({
         position: colliderPosition,
-        radius: 16
+        radius: 8,
+        drawCamera
     });
     
     const playerRigidBody = useRigidBody({
