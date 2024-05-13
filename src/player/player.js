@@ -6,14 +6,12 @@ import {
     useEntity
 } from 'titanium';
 
+import { usePlayerPositionStorage } from './playerPositionStorage';
 import { usePlayerController } from './playerController';
 import { usePlayerCameraController } from './playerCameraController';
 import { usePlayerDirectionState } from './playerDirectionState';
 import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
-
-import { useRifle } from '../weapon/ranged/rifle';
-import { useSword } from '../weapon/melee/sword';
 import { usePlayerWeapon } from './playerWeapon';
 
 export const usePlayer = ({
@@ -21,11 +19,17 @@ export const usePlayer = ({
 }) => {
 
     const playerPosition = usePosition({});
+    const playerPositionStorage = usePlayerPositionStorage({
+        playerPosition
+    });
+    playerPositionStorage.load();
+
     const shoulderPosition = usePosition({
         y: -2,
         parent: playerPosition
     });
     const aimPosition = usePosition({});
+
     const playerMotion = useMotion({});
 
     const playerDirectionState = usePlayerDirectionState({
@@ -40,6 +44,7 @@ export const usePlayer = ({
     const playerController = usePlayerController({
         aimPosition,
         drawCamera,
+        playerPosition,
         playerMotion,
         playerDirectionState,
         playerMovementState
@@ -87,6 +92,7 @@ export const usePlayer = ({
     const entity = useEntity({
         components: {
             playerPosition,
+            playerPositionSaver: playerPositionStorage,
             playerMotion,
             playerController,
             playerCameraController,
