@@ -32,8 +32,8 @@ export const useLobby = ({
     });
 
     const terrainCollider = useRectCollider({
-        position: usePosition({x: 0, y: 100}),
-        width: 64, height: 64,
+        position: usePosition({x: 0, y: 160}),
+        width: 128, height: 128,
         drawCamera
     });
 
