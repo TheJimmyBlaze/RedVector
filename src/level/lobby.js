@@ -31,11 +31,36 @@ export const useLobby = ({
         })
     });
 
-    const terrainCollider = useRectCollider({
-        position: usePosition({x: 0, y: 160}),
-        width: 128, height: 128,
-        drawCamera
-    });
+    const terrainCollider = [
+        //Central pillar
+        useRectCollider({
+            position: usePosition({x: 0, y: 160}),
+            width: 128, height: 128,
+            drawCamera
+        }),
+        //Pillar door left
+        useRectCollider({
+            position: usePosition({x: -71, y: 152}),
+            width: 14, height: 82,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: -151, y: 152}),
+            width: 14, height: 82,
+            drawCamera
+        }),
+        //Pillar door right
+        useRectCollider({
+            position: usePosition({x: 72, y: 152}),
+            width: 14, height: 82,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 152, y: 152}),
+            width: 14, height: 82,
+            drawCamera
+        })
+    ];
 
     const entity = useEntity({
         components: {
