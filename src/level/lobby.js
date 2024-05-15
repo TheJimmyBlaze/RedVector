@@ -32,12 +32,14 @@ export const useLobby = ({
     });
 
     const terrainCollider = [
+
         //Central pillar
         useRectCollider({
             position: usePosition({x: 0, y: 160}),
             width: 128, height: 128,
             drawCamera
         }),
+
         //Pillar door left
         useRectCollider({
             position: usePosition({x: -71, y: 152}),
@@ -49,6 +51,7 @@ export const useLobby = ({
             width: 14, height: 82,
             drawCamera
         }),
+
         //Pillar door right
         useRectCollider({
             position: usePosition({x: 72, y: 152}),
@@ -60,6 +63,7 @@ export const useLobby = ({
             width: 14, height: 82,
             drawCamera
         }),
+
         //Pillar desk
         useRectCollider({
             position: usePosition({x: 0, y: 271}),
@@ -74,6 +78,35 @@ export const useLobby = ({
         useRectCollider({
             position: usePosition({x: 53, y: 264}),
             width: 22, height: 48,
+            drawCamera
+        }),
+
+        //Stair rails
+        useRectCollider({
+            position: usePosition({x: 8, y: -48}),
+            width: 16, height: 64,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 88, y: -48}),
+            width: 16, height: 64,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 168, y: -48}),
+            width: 16, height: 64,
+            drawCamera
+        }),
+
+        //Stair desk
+        useRectCollider({
+            position: usePosition({x: -74, y: -48}),
+            width: 22, height: 64,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: -132, y: -40}),
+            width: 92, height: 48,
             drawCamera
         })
     ];
