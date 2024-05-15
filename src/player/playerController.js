@@ -11,11 +11,11 @@ export const usePlayerController = ({
 }) => {
 
     const groundDrag = 10;
-    const walkSpeed = 300;
-    const sprintSpeed = 600;
+    const walkSpeed = 600;
+    const sprintSpeed = 900;
 
     const diveDrag = 5;
-    const diveSpeed = 250;
+    const diveSpeed = 300;
 
     const dive = () => {
 

@@ -14,8 +14,8 @@ export const usePlayerMovementState = ({
 
     const idleThreshold = 1;
     const walkThreshold = 50;
-    const runThreshold = 100;
-    const rollThreshold = 80;
+    const runThreshold = 150;
+    const rollThreshold = 100;
 
     const machine = useFiniteStateMachine({
         initialState: movementStates.idle

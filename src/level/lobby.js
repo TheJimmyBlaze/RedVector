@@ -67,7 +67,7 @@ export const useLobby = ({
         //Pillar desk
         useRectCollider({
             position: usePosition({x: 0, y: 271}),
-            width: 82, height: 34,
+            width: 86, height: 34,
             drawCamera
         }),
         useRectCollider({
@@ -105,8 +105,32 @@ export const useLobby = ({
             drawCamera
         }),
         useRectCollider({
-            position: usePosition({x: -132, y: -40}),
-            width: 92, height: 48,
+            position: usePosition({x: -130, y: -40}),
+            width: 94, height: 48,
+            drawCamera
+        }),
+
+        //Monolith
+        useRectCollider({
+            position: usePosition({x: 0, y: -360}),
+            width: 128, height: 112,
+            drawCamera
+        }),
+
+        //Top walls
+        useRectCollider({
+            position: usePosition({x: 0, y: -462}),
+            width: 64, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: -72, y: -458}),
+            width: 80, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 72, y: -458}),
+            width: 80, height: 20,
             drawCamera
         })
     ];
