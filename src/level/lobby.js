@@ -119,7 +119,7 @@ export const useLobby = ({
 
         //Top walls
         useRectCollider({
-            position: usePosition({x: 0, y: -462}),
+            position: usePosition({x: 0, y: -460}),
             width: 64, height: 20,
             drawCamera
         }),
@@ -132,7 +132,61 @@ export const useLobby = ({
             position: usePosition({x: 72, y: -458}),
             width: 80, height: 20,
             drawCamera
-        })
+        }),
+
+        //Top Right Corridor
+        useRectCollider({
+            position: usePosition({x: 192, y: -384}),
+            width: 160, height: 160,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 506, y: -296}),
+            width: 20, height: 92,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 345, y: -121}),
+            width: 340, height: 270,
+            drawCamera
+        }),
+
+        //Elevators
+        useRectCollider({
+            position: usePosition({x: 289, y: -330}),
+            width: 34, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 320, y: -332}),
+            width: 32, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 352, y: -330}),
+            width: 36, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 384, y: -332}),
+            width: 32, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 416, y: -330}),
+            width: 36, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 448, y: -332}),
+            width: 32, height: 20,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 480, y: -330}),
+            width: 36, height: 20,
+            drawCamera
+        }),
     ];
 
     const entity = useEntity({
