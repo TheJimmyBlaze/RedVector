@@ -146,8 +146,8 @@ export const useLobby = ({
             drawCamera
         }),
         useRectCollider({
-            position: usePosition({x: 345, y: -121}),
-            width: 340, height: 270,
+            position: usePosition({x: 346, y: -121}),
+            width: 341, height: 270,
             drawCamera
         }),
 
@@ -185,6 +185,65 @@ export const useLobby = ({
         useRectCollider({
             position: usePosition({x: 480, y: -330}),
             width: 36, height: 20,
+            drawCamera
+        }),
+
+        //Bottom Right Corridor
+        useRectCollider({
+            position: usePosition({x: 360, y: 8}),
+            width: 52, height: 16,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 424, y: 8}),
+            width: 20, height: 16,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 440, y: 40}),
+            width: 16, height: 64,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 238, y: 22}),
+            width: 125, height: 20,
+            drawCamera
+        }),
+
+        //Right Stairs
+        useRectCollider({
+            position: usePosition({x: 303, y: 28}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 308, y: 26}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 313, y: 24}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 318, y: 22}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 323, y: 20}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 328, y: 18}),
+            width: 4, height: 4,
+            drawCamera
+        }),
+        useRectCollider({
+            position: usePosition({x: 333, y: 16}),
+            width: 4, height: 4,
             drawCamera
         }),
     ];
