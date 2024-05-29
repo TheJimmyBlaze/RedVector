@@ -13,8 +13,8 @@ import { useLobby } from './level/lobby';
 const game = useGame({});
 
 const appCanvas = useAppCanvas();
-const gameCamera = useGameCamera({canvas: appCanvas});
-const uiCamera = useUiCamera({canvas: appCanvas});
+export const gameCamera = useGameCamera({canvas: appCanvas});
+export const uiCamera = useUiCamera({canvas: appCanvas});
 
 gameCamera.setScale(5);
 uiCamera.setScale(1.5);
@@ -26,9 +26,9 @@ registry.register(uiCamera);
 const performanceProfiler = usePerformanceProfiler({drawCamera: uiCamera});
 registry.register(performanceProfiler);
 
-registry.register(useLobby({x: 0, y: 0, drawCamera: gameCamera}));
+registry.register(useLobby());
 
-registry.register(usePlayer({drawCamera: gameCamera}));
+registry.register(usePlayer());
 
 console.log(registry.stringify());
 

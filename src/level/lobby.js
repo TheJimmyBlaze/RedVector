@@ -7,12 +7,11 @@ import {
     useRectCollider
  } from 'titanium';
 
-export const useLobby = ({
-    x, y,
-    drawCamera
-}) => {
+ import { gameCamera as drawCamera } from '../app';
 
-    const position = usePosition({x, y});
+export const useLobby = () => {
+
+    const position = usePosition({});
     
     const sprite = useSpriteSheet({
         imagePath: 'sprites/level_lobby.png',

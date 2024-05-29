@@ -10,6 +10,8 @@ import {
     useLineCollider
 } from 'titanium';
 
+import { gameCamera as drawCamera } from '../app';
+
 import { usePlayerPositionStorage } from './playerPositionStorage';
 import { usePlayerController } from './playerController';
 import { usePlayerCameraController } from './playerCameraController';
@@ -18,9 +20,7 @@ import { usePlayerMovementState } from './playerMovementState';
 import { usePlayerAnimator } from './playerAnimator';
 import { usePlayerWeapon } from './playerWeapon';
 
-export const usePlayer = ({
-    drawCamera
-}) => {
+export const usePlayer = () => {
 
     const playerPosition = usePosition({});
     const playerPositionStorage = usePlayerPositionStorage({
@@ -68,11 +68,11 @@ export const usePlayer = ({
         radius: 6,
         drawCamera
     });
-    const nothingCollider = usePointCollider({
-        position: colliderPosition,
+    const shoulderCollider = usePointCollider({
+        position: shoulderPosition,
         drawCamera
     });
-    const nopeCollider = useLineCollider({
+    const aimCollider = useLineCollider({
         line: useLine({
             startPosition: shoulderPosition,
             endPosition: aimPosition
@@ -111,8 +111,8 @@ export const usePlayer = ({
             playerController,
             playerCameraController,
             playerCollider,
-            nothingCollider,
-            nopeCollider,
+            shoulderCollider,
+            aimCollider,
             playerRigidBody,
             playerDirectionState,
             playerMovementState,
