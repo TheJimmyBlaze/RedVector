@@ -12,6 +12,8 @@ import {
     debugColliderCameraProxy as colliderProxy
 } from '../app';
 
+import { useImpulseField } from './agitator/impulseField';
+
 export const useLobby = () => {
 
     const position = usePosition({});
@@ -378,11 +380,21 @@ export const useLobby = () => {
         }),
     ];
 
+    const impulseField = [
+
+        //Right stairs
+        useImpulseField({
+            position: usePosition({x: 318, y: 40}),
+            width: 34, height: 64
+        })
+    ];
+
     const entity = useEntity({
         components: {
             position,
             sprite,
-            terrainCollider
+            terrainCollider,
+            impulseField
         }
     });
 

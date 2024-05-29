@@ -4,7 +4,7 @@ export const useCameraProxy = ({
     drawColour = null
 }) => {
 
-    let enabled = false;
+    let enabled = true;
     const setEnabled = value => enabled = value;
     const getEnabled = () => enabled;
     const toggle = () => enabled = !enabled;
@@ -16,7 +16,7 @@ export const useCameraProxy = ({
         drawCamera.requestDraw(ctx => {
 
             if (drawColour) {
-                ctx.strokeStyle = ctx.fillStyle = drawColour
+                ctx.strokeStyle = ctx.fillStyle = drawColour;
             }
 
             callback(ctx);

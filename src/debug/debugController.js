@@ -2,7 +2,8 @@
 import { input } from 'titanium';
 
 import { 
-    debugColliderCameraProxy as colliderProxy
+    debugColliderCameraProxy as colliderProxy,
+    debugAgitatorCameraProxy as agitatorProxy
 } from '../app';
 
 import { binds } from '../keyBinds';
@@ -11,7 +12,10 @@ export const useDebugController = () => {
 
     const update = () => {
 
-        input.wasPressed(binds.debug) && colliderProxy.toggle();
+        if (input.wasPressed(binds.debug)) {
+            colliderProxy.toggle();
+            agitatorProxy.toggle();
+        }
     };
 
     return {
