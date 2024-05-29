@@ -1,4 +1,5 @@
 import { 
+    deltaTime,
     registry,
     useRectCollider
 } from 'titanium';
@@ -37,8 +38,8 @@ export const useLinearTranslator = ({
             } = body.motion.getMotion();
 
             body.position.move(
-                velocityX * translateXX + velocityY * translateXY, 
-                velocityX * translateYX + velocityY * translateYY
+                (velocityX * translateXX + velocityY * translateXY) * deltaTime(),  
+                (velocityX * translateYX + velocityY * translateYY) * deltaTime()
             );
         });
     };

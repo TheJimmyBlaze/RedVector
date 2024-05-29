@@ -386,30 +386,30 @@ export const useLobby = () => {
         useLinearTranslator({
             position: usePosition({x: 46, y: -48}),
             width: 240, height: 36,
-            translateYY: -0.006
+            translateYY: -0.3
         }),
 
         //Right stairs
         useLinearTranslator({
             position: usePosition({x: 318, y: 40}),
             width: 34, height: 64,
-            translateYX: -0.004,
-            translateXX: -0.006
+            translateYX: -0.3,
+            translateXX: -0.2
         }),
 
         //Left stairs
         useLinearTranslator({
             position: usePosition({x: -222, y: 40}),
             width: 34, height: 64,
-            translateYX: 0.004,
-            translateXX: -0.006
+            translateYX: 0.3,
+            translateXX: -0.2
         }),
 
         //Monolith stairs
         useLinearTranslator({
             position: usePosition({x: 0, y: -358}),
             width: 240, height: 84,
-            translateYY: -0.006
+            translateYY: -0.3
         })
     ];
 
