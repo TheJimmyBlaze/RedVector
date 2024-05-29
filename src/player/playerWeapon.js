@@ -1,9 +1,9 @@
-import { input } from "titanium";
+import { input } from 'titanium';
 
-import { useRifle } from "../weapon/ranged/rifle";
-import { useSword } from "../weapon/melee/sword";
+import { useRifle } from '../weapon/ranged/rifle';
+import { useSword } from '../weapon/melee/sword';
 
-import { binds } from "../keyBinds";
+import { binds } from '../keyBinds';
 
 export const usePlayerWeapon = ({
     position,
@@ -34,6 +34,7 @@ export const usePlayerWeapon = ({
     const draw = () => weapon.actions.draw();
 
     return {
+        setWeapon,
         actions: {
             update,
             draw

@@ -3,14 +3,13 @@ import {
     useMotion,
     useCircleCollider,
     useRigidBody,
-    useEntity, 
-
-    usePointCollider,
-    useLine,
-    useLineCollider
+    useEntity
 } from 'titanium';
 
-import { gameCamera as drawCamera } from '../app';
+import { 
+    gameCamera as drawCamera,
+    debugColliderCameraProxy as colliderProxy
+} from '../app';
 
 import { usePlayerPositionStorage } from './playerPositionStorage';
 import { usePlayerController } from './playerController';
@@ -66,18 +65,7 @@ export const usePlayer = () => {
     const playerCollider = useCircleCollider({
         position: colliderPosition,
         radius: 6,
-        drawCamera
-    });
-    const shoulderCollider = usePointCollider({
-        position: shoulderPosition,
-        drawCamera
-    });
-    const aimCollider = useLineCollider({
-        line: useLine({
-            startPosition: shoulderPosition,
-            endPosition: aimPosition
-        }),
-        drawCamera
+        drawCamera: colliderProxy
     });
     
     const playerRigidBody = useRigidBody({
@@ -111,8 +99,6 @@ export const usePlayer = () => {
             playerController,
             playerCameraController,
             playerCollider,
-            shoulderCollider,
-            aimCollider,
             playerRigidBody,
             playerDirectionState,
             playerMovementState,
