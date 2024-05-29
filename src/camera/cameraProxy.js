@@ -1,6 +1,7 @@
 
 export const useCameraProxy = ({
-    drawCamera
+    drawCamera,
+    drawColour = null
 }) => {
 
     let enabled = false;
@@ -12,7 +13,15 @@ export const useCameraProxy = ({
 
         if (!enabled) return;
 
-        drawCamera.requestDraw(callback, zIndex);
+        drawCamera.requestDraw(ctx => {
+
+            if (drawColour) {
+                ctx.strokeStyle = ctx.fillStyle = drawColour
+            }
+
+            callback(ctx);
+            
+        }, zIndex);
     } ;
 
     return {

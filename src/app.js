@@ -1,4 +1,4 @@
-import { usePerformanceProfiler, useGame, registry } from 'titanium';
+import { useGame, registry } from 'titanium';
 
 import './keyBinds';
 
@@ -19,8 +19,14 @@ const appCanvas = useAppCanvas();
 export const gameCamera = useGameCamera({canvas: appCanvas});
 export const uiCamera = useUiCamera({canvas: appCanvas});
 
-export const debugColliderCameraProxy = useCameraProxy({drawCamera: gameCamera});
-export const debugProfilerCameraProxy = useCameraProxy({drawCamera: uiCamera});
+export const debugColliderCameraProxy = useCameraProxy({
+    drawCamera: gameCamera,
+    drawColour: 'cornflowerBlue'
+});
+export const debugProfilerCameraProxy = useCameraProxy({
+    drawCamera: uiCamera,
+    drawColour: 'lime'
+});
 
 gameCamera.setScale(5);
 uiCamera.setScale(1.5);
@@ -29,11 +35,8 @@ registry.register(appCanvas);
 registry.register(gameCamera);
 registry.register(uiCamera);
 
-const performanceProfiler = usePerformanceProfiler({drawCamera: debugProfilerCameraProxy});
-registry.register(performanceProfiler);
-debugProfilerCameraProxy.setEnabled(true);
-
 registry.register(useDebugMenu());
+debugProfilerCameraProxy.setEnabled(true);
 
 registry.register(useLobby());
 
