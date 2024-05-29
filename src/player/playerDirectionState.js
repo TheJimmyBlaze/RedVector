@@ -6,7 +6,7 @@ export const directionStates = {
 };
 
 export const usePlayerDirectionState = ({
-    playerPosition,
+    position,
     aimPosition
 }) => {
 
@@ -23,7 +23,7 @@ export const usePlayerDirectionState = ({
         condition: () => {
             
             const { x: aimX } = aimPosition.getPosition();
-            const { x: playerX } = playerPosition.getPosition();
+            const { x: playerX } = position.getPosition();
 
             return aimX > playerX;
         }
@@ -35,7 +35,7 @@ export const usePlayerDirectionState = ({
         condition: () => {
 
             const { x: aimX } = aimPosition.getPosition();
-            const { x: playerX } = playerPosition.getPosition();
+            const { x: playerX } = position.getPosition();
 
             return aimX < playerX;
         }

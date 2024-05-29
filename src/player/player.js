@@ -21,45 +21,45 @@ import { usePlayerWeapon } from './playerWeapon';
 
 export const usePlayer = () => {
 
-    const playerPosition = usePosition({});
+    const position = usePosition({});
     const playerPositionStorage = usePlayerPositionStorage({
-        playerPosition
+        position
     });
     playerPositionStorage.load();
 
     const shoulderPosition = usePosition({
         y: -2,
-        parent: playerPosition
+        parent: position
     });
     const aimPosition = usePosition({});
 
-    const playerMotion = useMotion({});
+    const motion = useMotion({});
 
     const playerDirectionState = usePlayerDirectionState({
-        playerPosition,
+        position,
         aimPosition
     });
 
     const playerMovementState = usePlayerMovementState({
-        playerMotion
+        motion
     });
 
     const playerController = usePlayerController({
         aimPosition,
         drawCamera,
-        playerPosition,
-        playerMotion,
+        position,
+        motion,
         playerDirectionState,
         playerMovementState
     });
 
     const playerCameraController = usePlayerCameraController({
-        playerPosition,
+        position,
         drawCamera
     });
 
     const colliderPosition = usePosition({
-        parent: playerPosition
+        parent: position
     });
 
     const playerCollider = useCircleCollider({
@@ -68,16 +68,16 @@ export const usePlayer = () => {
         drawCamera: colliderProxy
     });
     
-    const playerRigidBody = useRigidBody({
+    const rigidBody = useRigidBody({
         obstructiveColliderComponent: 'terrainCollider',
-        position: playerPosition,
-        motion: playerMotion,
+        position,
+        motion,
         collider: playerCollider
     });
 
     const playerAnimator = usePlayerAnimator({
-        playerPosition,
-        playerMotion,
+        position,
+        motion,
         playerDirectionState,
         playerMovementState,
         drawCamera
@@ -93,13 +93,13 @@ export const usePlayer = () => {
 
     const entity = useEntity({
         components: {
-            playerPosition,
-            playerPositionSaver: playerPositionStorage,
-            playerMotion,
+            position,
+            playerPositionStorage,
+            motion,
             playerController,
             playerCameraController,
             playerCollider,
-            playerRigidBody,
+            rigidBody,
             playerDirectionState,
             playerMovementState,
             playerAnimator,

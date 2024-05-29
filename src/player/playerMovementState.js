@@ -9,7 +9,7 @@ export const movementStates = {
 };
 
 export const usePlayerMovementState = ({
-    playerMotion
+    motion
 }) => {
 
     const idleThreshold = 1;
@@ -30,36 +30,36 @@ export const usePlayerMovementState = ({
     machine.addTransition({
         exitState: movementStates.idle,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= idleThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) >= idleThreshold
     });
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.idle,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < idleThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) < idleThreshold
     });
 
     //Run
     machine.addTransition({
         exitState: movementStates.walk,
         enterState: movementStates.run,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= walkThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) >= walkThreshold
     });
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.walk,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < walkThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) < walkThreshold
     });
 
     //Dive
     machine.addTransition({
         exitState: movementStates.run,
         enterState: movementStates.dodge,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) >= runThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) >= runThreshold
     });
     machine.addTransition({
         exitState: movementStates.dodge,
         enterState: movementStates.recover,
-        condition: () => Math.abs(playerMotion.getMotion().velocityX) + Math.abs(playerMotion.getMotion().velocityY) < rollThreshold
+        condition: () => Math.abs(motion.getMotion().velocityX) + Math.abs(motion.getMotion().velocityY) < rollThreshold
     });
 
     return {

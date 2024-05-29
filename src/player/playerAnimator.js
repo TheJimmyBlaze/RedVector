@@ -8,16 +8,16 @@ import {
 import { movementStates } from './playerMovementState';
 
 export const usePlayerAnimator = ({
-    playerPosition,
-    playerMotion,
+    position,
+    motion,
     playerDirectionState,
     playerMovementState,
     drawCamera
 }) => {
 
     const isMovingBackwards = () => (
-        playerDirectionState.isLeft() && playerMotion.getMotion().velocityX > 0 ||
-        playerDirectionState.isRight() && playerMotion.getMotion().velocityX < 0
+        playerDirectionState.isLeft() && motion.getMotion().velocityX > 0 ||
+        playerDirectionState.isRight() && motion.getMotion().velocityX < 0
     );
     
     const sprites = useSpriteSheet({
@@ -43,7 +43,7 @@ export const usePlayerAnimator = ({
         if (sprite?.name === name) return;
 
         sprite = sprites[name]({
-            position: playerPosition,
+            position: position,
             camera: drawCamera,
             options: spriteOptions
         });
@@ -54,7 +54,7 @@ export const usePlayerAnimator = ({
 
         if (playerMovementState.getState() === movementStates.dodge) {
 
-            const diveRotation = 120 * (playerMotion.getMotion().velocityX >= 0 || -1);
+            const diveRotation = 120 * (motion.getMotion().velocityX >= 0 || -1);
             spriteOptions.setRotation(lerp(spriteOptions.getRotation(), spriteOptions.getRotation() + diveRotation, 0.0001));
         } else {
             spriteOptions.setRotation(0);

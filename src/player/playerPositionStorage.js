@@ -3,12 +3,11 @@ const playerPosition = "playerPosition";
 const playerX = `${playerPosition}X`;
 const playerY = `${playerPosition}Y`;
 
-
 export const usePlayerPositionStorage = ({
-    playerPosition,
+    position,
 }) => {
 
-    const {x: defaultX, y: defaultY} = playerPosition.getPosition();
+    const {x: defaultX, y: defaultY} = position.getPosition();
 
     const load = () => {
 
@@ -18,7 +17,7 @@ export const usePlayerPositionStorage = ({
         if (isNaN(x)) {x = defaultX}
         if (isNaN(y)) {y = defaultY}
 
-        playerPosition.moveTo(Number(x), Number(y));
+        position.moveTo(Number(x), Number(y));
     };
 
     const update = () => {
@@ -27,7 +26,7 @@ export const usePlayerPositionStorage = ({
             load();
         }
 
-        const {x, y} = playerPosition.getPosition();
+        const {x, y} = position.getPosition();
     
         localStorage.setItem(playerX, x);
         localStorage.setItem(playerY, y);

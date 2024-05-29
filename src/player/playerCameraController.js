@@ -1,7 +1,7 @@
 import { lerp, usePosition } from 'titanium';
 
 export const usePlayerCameraController = ({
-    playerPosition,
+    position,
     drawCamera
 }) => {
 
@@ -9,7 +9,7 @@ export const usePlayerCameraController = ({
     drawCamera.position.setParent(cameraFocus);
 
     const update = () => {
-        cameraFocus.lerpToPosition(playerPosition, 0.00001);
+        cameraFocus.lerpToPosition(position, 0.00001);
     };
 
     return {

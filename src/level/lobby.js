@@ -12,7 +12,7 @@ import {
     debugColliderCameraProxy as colliderProxy
 } from '../app';
 
-import { useImpulseField } from './agitator/impulseField';
+import { useLinearTranslator } from './agitator/linearTranslator';
 
 export const useLobby = () => {
 
@@ -380,12 +380,36 @@ export const useLobby = () => {
         }),
     ];
 
-    const impulseField = [
+    const linearTranslator = [
+
+        //Centre stairs
+        useLinearTranslator({
+            position: usePosition({x: 46, y: -48}),
+            width: 240, height: 36,
+            translateYY: -0.006
+        }),
 
         //Right stairs
-        useImpulseField({
+        useLinearTranslator({
             position: usePosition({x: 318, y: 40}),
-            width: 34, height: 64
+            width: 34, height: 64,
+            translateYX: -0.004,
+            translateXX: -0.006
+        }),
+
+        //Left stairs
+        useLinearTranslator({
+            position: usePosition({x: -222, y: 40}),
+            width: 34, height: 64,
+            translateYX: 0.004,
+            translateXX: -0.006
+        }),
+
+        //Monolith stairs
+        useLinearTranslator({
+            position: usePosition({x: 0, y: -358}),
+            width: 240, height: 84,
+            translateYY: -0.006
         })
     ];
 
@@ -394,7 +418,7 @@ export const useLobby = () => {
             position,
             sprite,
             terrainCollider,
-            impulseField
+            impulseField: linearTranslator
         }
     });
 

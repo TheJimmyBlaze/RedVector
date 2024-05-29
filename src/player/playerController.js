@@ -5,7 +5,7 @@ import { directionStates } from './playerDirectionState';
 export const usePlayerController = ({
     aimPosition,
     drawCamera,
-    playerMotion,
+    motion,
     playerDirectionState,
     playerMovementState
 }) => {
@@ -19,18 +19,18 @@ export const usePlayerController = ({
 
     const dive = () => {
 
-        playerMotion.setDrag(diveDrag);
+        motion.setDrag(diveDrag);
 
-        input.isDown(binds.moveUp) && playerMotion.impulseY(-diveSpeed);
-        input.isDown(binds.moveDown) && playerMotion.impulseY(diveSpeed);
-        input.isDown(binds.moveLeft) && playerMotion.impulseX(-diveSpeed);
-        input.isDown(binds.moveRight) && playerMotion.impulseX(diveSpeed);
+        input.isDown(binds.moveUp) && motion.impulseY(-diveSpeed);
+        input.isDown(binds.moveDown) && motion.impulseY(diveSpeed);
+        input.isDown(binds.moveLeft) && motion.impulseX(-diveSpeed);
+        input.isDown(binds.moveRight) && motion.impulseX(diveSpeed);
 
-        const {potentialX, potentialY} = playerMotion.getPotential();
+        const {potentialX, potentialY} = motion.getPotential();
         if (!potentialX && !potentialY) {
             playerDirectionState.getState() === directionStates.right &&
-                playerMotion.impulseX(diveSpeed) ||
-                playerMotion.impulseX(-diveSpeed);
+                motion.impulseX(diveSpeed) ||
+                motion.impulseX(-diveSpeed);
         }
     };
 
@@ -44,13 +44,13 @@ export const usePlayerController = ({
             return;
         }
 
-        playerMotion.setDrag(groundDrag);
-        input.isDown(binds.sprint) && playerMotion.setAcceleration(sprintSpeed) || playerMotion.setAcceleration(walkSpeed);
+        motion.setDrag(groundDrag);
+        input.isDown(binds.sprint) && motion.setAcceleration(sprintSpeed) || motion.setAcceleration(walkSpeed);
 
-        input.isDown(binds.moveUp) && playerMotion.decelerateY();
-        input.isDown(binds.moveDown) && playerMotion.accelerateY();
-        input.isDown(binds.moveLeft) && playerMotion.decelerateX();
-        input.isDown(binds.moveRight) && playerMotion.accelerateX();
+        input.isDown(binds.moveUp) && motion.decelerateY();
+        input.isDown(binds.moveDown) && motion.accelerateY();
+        input.isDown(binds.moveLeft) && motion.decelerateX();
+        input.isDown(binds.moveRight) && motion.accelerateX();
     };
 
     return {
