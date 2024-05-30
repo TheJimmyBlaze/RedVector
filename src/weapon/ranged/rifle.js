@@ -29,7 +29,7 @@ export const useRifle = ({
     const sprites = useSpriteSheet({
         imagePath: 'sprites/weapon_ranged_rifle_sheet.png',
         sliceWidth: 48,
-        sliceHeight: 16,
+        sliceHeight: 32,
         runs: [
             useSpriteSheetRun({name: 'rest'}),
             useSpriteSheetRun({name: 'fire', x: 1, spriteCount: 3, fps: 24})

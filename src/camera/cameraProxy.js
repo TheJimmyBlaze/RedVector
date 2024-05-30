@@ -4,7 +4,7 @@ export const useCameraProxy = ({
     drawColour = null
 }) => {
 
-    let enabled = true;
+    let enabled = false;
     const setEnabled = value => enabled = value;
     const getEnabled = () => enabled;
     const toggle = () => enabled = !enabled;
