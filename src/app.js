@@ -19,18 +19,9 @@ const appCanvas = useAppCanvas();
 export const gameCamera = useGameCamera({canvas: appCanvas});
 export const uiCamera = useUiCamera({canvas: appCanvas});
 
-export const debugColliderCameraProxy = useCameraProxy({
-    drawCamera: gameCamera,
-    drawColour: 'cornflowerBlue'
-});
-export const debugAgitatorCameraProxy = useCameraProxy({
-    drawCamera: gameCamera,
-    drawColour: 'gold'
-});
-export const debugProfilerCameraProxy = useCameraProxy({
-    drawCamera: uiCamera,
-    drawColour: 'greenYellow'
-});
+export const debugColliderCameraProxy = useCameraProxy({ drawCamera: gameCamera, drawColour: 'cornflowerBlue' });
+export const debugAgitatorCameraProxy = useCameraProxy({ drawCamera: gameCamera, drawColour: 'gold' });
+export const debugProfilerCameraProxy = useCameraProxy({ drawCamera: uiCamera, drawColour: 'greenYellow' });
 
 gameCamera.setScale(5);
 uiCamera.setScale(1.5);

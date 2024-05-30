@@ -1,4 +1,5 @@
 import {
+    registry,
     useSpriteSheet,
     useSpriteSheetRun,
     useSpriteOptions,
@@ -8,6 +9,7 @@ import {
 
 import { binds } from '../../keyBinds';
 import { movementStates } from '../../player/playerMovementState';
+import { useBullet } from '../projectile/bullet';
 
 export const useRifle = ({
     position,
@@ -62,7 +64,12 @@ export const useRifle = ({
             movementState.getState() !== movementStates.dodge
         ) {
             stateMachine.setState(states.fire);
-            //TODO: shoot bullets :)
+
+            const bullet = useBullet({
+                position: position.getParent().clone(),
+                direction: position.findAngleBetweenPosition(aimPosition)
+            });
+            registry.register(bullet);
         }
     };
 
