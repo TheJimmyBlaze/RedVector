@@ -1,5 +1,6 @@
 import {
     registry,
+    usePosition,
     useSpriteSheet,
     useSpriteSheetRun,
     useSpriteOptions,
@@ -65,9 +66,18 @@ export const useRifle = ({
         ) {
             stateMachine.setState(states.fire);
 
+            const rotation = position.findAngleBetweenPosition(aimPosition);
+            const barrelPosition = usePosition({
+                x: 28,
+                parent: position
+            });
+            barrelPosition.rotateAroundParent(rotation);
+
+            const recoil = Math.random() * 4 - 2;
+            const direction = rotation + recoil;
             const bullet = useBullet({
-                position: position.getParent().clone(),
-                direction: position.findAngleBetweenPosition(aimPosition)
+                position: barrelPosition,
+                direction
             });
             registry.register(bullet);
         }

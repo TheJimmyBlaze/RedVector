@@ -3,7 +3,10 @@ import {
     useEntity,
     useMotion,
     useLine,
-    useLineCollider
+    useLineCollider,
+    useSpriteSheet,
+    useSpriteSheetRun,
+    useSpriteOptions
 } from 'titanium';
 
 import { gameCamera as drawCamera } from '../../app';
@@ -18,13 +21,13 @@ export const useBullet = ({
     //Projectiles need to deregister themselves, and must know the id to deregister upfront
     const entityId = nanoid();
 
-    const previousPosition = position.clone();
+    const previousPosition = position.copy();
     const collider = useLineCollider({
         line: useLine({
             startPosition: position,
             endPosition: previousPosition
         }),
-        drawCamera
+        //drawCamera
     });
 
     const motion = useMotion({
@@ -46,13 +49,32 @@ export const useBullet = ({
     motion.impulseX(impulseX);
     motion.impulseY(impulseY);
 
+    const sprite = useSpriteSheet({
+        imagePath: 'sprites/weapon_ranged_bullet_sheet.png',
+        sliceWidth: 16,
+        sliceHeight: 1,
+        runs: [
+            useSpriteSheetRun({
+                name: 'sprite'
+            })
+        ]
+    }).sprite({
+        position,
+        camera: drawCamera,
+        options: useSpriteOptions({
+            rotation: direction,
+            zIndex: 10
+        })
+    });
+
     const entity = useEntity({
         id: entityId,
         components: {
             position,
             motion,
             collider,
-            projectileBody
+            projectileBody,
+            sprite
         }
     });
 
