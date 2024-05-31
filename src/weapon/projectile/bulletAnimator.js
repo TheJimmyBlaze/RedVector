@@ -38,7 +38,7 @@ export const useBulletAnimator = ({
     const draw = () => {
 
         const colliderLength = collider.line.getLength();
-        const bulletLength = colliderLength / (2 + Math.random()) * 2;
+        const bulletLength = colliderLength * 8;
         options.setWidth(bulletLength);
 
         getSprite().actions.draw();

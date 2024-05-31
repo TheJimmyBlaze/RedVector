@@ -13,7 +13,7 @@ import { useBulletAnimator } from './bulletAnimator';
 export const useBullet = ({
     position,
     direction,
-    speed = 6000
+    speed = 1600
 }) => {
 
     //Projectiles need to deregister themselves, and must know the id to deregister upfront

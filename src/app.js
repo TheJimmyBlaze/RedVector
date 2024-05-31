@@ -23,7 +23,7 @@ export const debugColliderCameraProxy = useCameraProxy({ drawCamera: gameCamera,
 export const debugAgitatorCameraProxy = useCameraProxy({ drawCamera: gameCamera, drawColour: 'gold' });
 export const debugProfilerCameraProxy = useCameraProxy({ drawCamera: uiCamera, drawColour: 'greenYellow' });
 
-gameCamera.setScale(2);
+gameCamera.setScale(4);
 uiCamera.setScale(1.5);
 
 registry.register(appCanvas);
