@@ -68,7 +68,7 @@ export const useRifle = ({
 
             const rotation = position.findAngleBetweenPosition(aimPosition);
             const barrelPosition = usePosition({
-                x: 28,
+                x: 40,
                 parent: position
             });
             barrelPosition.rotateAroundParent(rotation);

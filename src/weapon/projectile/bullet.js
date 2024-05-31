@@ -3,19 +3,17 @@ import {
     useEntity,
     useMotion,
     useLine,
-    useLineCollider,
-    useSpriteSheet,
-    useSpriteSheetRun,
-    useSpriteOptions
+    useLineCollider
 } from 'titanium';
 
 import { gameCamera as drawCamera } from '../../app';
 import { useProjectileBody } from './projectileBody';
+import { useBulletAnimator } from './bulletAnimator';
 
 export const useBullet = ({
     position,
     direction,
-    speed = 1600
+    speed = 6000
 }) => {
 
     //Projectiles need to deregister themselves, and must know the id to deregister upfront
@@ -49,22 +47,11 @@ export const useBullet = ({
     motion.impulseX(impulseX);
     motion.impulseY(impulseY);
 
-    const sprite = useSpriteSheet({
-        imagePath: 'sprites/weapon_ranged_bullet_sheet.png',
-        sliceWidth: 16,
-        sliceHeight: 1,
-        runs: [
-            useSpriteSheetRun({
-                name: 'sprite'
-            })
-        ]
-    }).sprite({
+    const animator = useBulletAnimator({
         position,
-        camera: drawCamera,
-        options: useSpriteOptions({
-            rotation: direction,
-            zIndex: 10
-        })
+        collider,
+        direction,
+        drawCamera
     });
 
     const entity = useEntity({
@@ -74,7 +61,7 @@ export const useBullet = ({
             motion,
             collider,
             projectileBody,
-            sprite
+            animator
         }
     });
 

@@ -13,6 +13,8 @@ export const useProjectileBody = ({
 
     if (!entityId) throw new error('entityId is not defined');
 
+    let willDestroy = false;
+
     const body = motionBody({
         obstructiveColliderComponent: 'terrainCollider',
         position,
@@ -20,7 +22,15 @@ export const useProjectileBody = ({
         collider
     });
 
+    const destroy = () => {
+
+        const projectileEntity = registry.getEntityById(entityId);
+        registry.deregister(projectileEntity);
+    };
+
     const update = () => {
+
+        if (willDestroy) destroy();
 
         const {x, y} = position.getPosition();
         const collisions = body.move();
@@ -29,9 +39,7 @@ export const useProjectileBody = ({
         previousPosition.moveTo(x, y);
 
         if (!collisions?.length) return;
-
-        const projectileEntity = registry.getEntityById(entityId);
-        registry.deregister(projectileEntity);
+        willDestroy = true;
     };
 
     return {
