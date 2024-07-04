@@ -11,6 +11,7 @@ export const useBulletAnimator = ({
     drawCamera
 }) => {
 
+    const drawPosition = position.copy();
     const sprites = useSpriteSheet({
         imagePath: 'sprites/weapon_ranged_bullet_sheet.png',
         sliceWidth: 16,
@@ -29,7 +30,7 @@ export const useBulletAnimator = ({
     
     const getSprite = () => (
         sprites.sprite({
-            position,
+            position: drawPosition,
             camera: drawCamera,
             options
         })
@@ -38,9 +39,10 @@ export const useBulletAnimator = ({
     const draw = () => {
 
         const colliderLength = collider.line.getLength();
-        const bulletLength = colliderLength * 8;
-        options.setWidth(bulletLength);
+        const colliderMidPosition = collider.line.findDistancePositionOnLine(colliderLength / 2);
+        drawPosition.moveToPosition(colliderMidPosition);
 
+        options.setWidth(colliderLength);
         getSprite().actions.draw();
     };
 

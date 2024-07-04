@@ -19,11 +19,11 @@ export const useBullet = ({
     //Projectiles need to deregister themselves, and must know the id to deregister upfront
     const entityId = nanoid();
 
-    const previousPosition = position.copy();
+    const endPosition = position.copy();
     const collider = useLineCollider({
         line: useLine({
             startPosition: position,
-            endPosition: previousPosition
+            endPosition
         }),
         //drawCamera
     });
@@ -35,7 +35,8 @@ export const useBullet = ({
     const projectileBody = useProjectileBody({
         entityId,
         position,
-        previousPosition,
+        endPosition,
+        lengthMultiplier: 5,
         motion,
         collider
     });

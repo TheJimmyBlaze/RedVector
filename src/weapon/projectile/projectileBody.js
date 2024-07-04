@@ -1,12 +1,14 @@
 import {
     registry, 
-    motionBody 
+    motionBody,
+    useLine
 } from 'titanium';
 
 export const useProjectileBody = ({
     entityId,
     position,
-    previousPosition,
+    endPosition,
+    lengthMultiplier = 1,
     motion,
     collider
 }) => {
@@ -15,6 +17,7 @@ export const useProjectileBody = ({
 
     let willDestroy = false;
 
+    const startPosition = position.copy();
     const body = motionBody({
         obstructiveColliderComponent: 'terrainCollider',
         position,
@@ -30,20 +33,35 @@ export const useProjectileBody = ({
 
     const update = () => {
 
-        if (willDestroy) destroy();
+        if (willDestroy) return destroy();
 
-        const {x, y} = position.getPosition();
+        const deltaPosition = position.copy();
         const collisions = body.move();
 
-        //The previous position joins the line collider form where the bullet it to where it last was
-        previousPosition.moveTo(x, y);
+        const deltaLine = useLine({
+            startPosition: position,
+            endPosition: deltaPosition
+        });
+        const deltaLength = deltaLine.getLength();
+        const maxLength = deltaLength * lengthMultiplier;
+
+        const minLine = useLine({
+            startPosition: position,
+            endPosition: startPosition
+        });
+        const minLength = minLine.getLength();
+        const length = Math.min(minLength, maxLength);
+
+        const newEndPosition = deltaLine.findDistancePositionOnLine(-length);
+        endPosition.moveToPosition(newEndPosition);
 
         if (!collisions?.length) return;
         willDestroy = true;
     };
 
     return {
-        position,
+        startPosition,
+        endPosition,
         motion,
         collider, 
         actions: {
