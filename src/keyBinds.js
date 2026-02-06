@@ -1,4 +1,10 @@
-import { input } from 'titanium';
+import { 
+    useInputAccess,
+    setInput
+} from 'titanium';
+
+const input = useInputAccess();
+setInput(input);
 
 export const binds = {
 

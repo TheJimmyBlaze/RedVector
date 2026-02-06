@@ -11,6 +11,7 @@ import {
 import { binds } from '../../keyBinds';
 import { movementStates } from '../../player/playerMovementState';
 import { useBullet } from '../projectile/bullet';
+import { images } from '../../globals';
 
 export const useRifle = ({
     position,
@@ -30,7 +31,7 @@ export const useRifle = ({
     });
     
     const sprites = useSpriteSheet({
-        imagePath: 'sprites/weapon_ranged_rifle_sheet.png',
+        image: images.rifle,
         sliceWidth: 48,
         sliceHeight: 32,
         runs: [
@@ -60,7 +61,7 @@ export const useRifle = ({
     const fire = () => {
 
         if (
-            input.isDown(binds.weaponAttack) &&
+            input().isDown(binds.weaponAttack) &&
             stateMachine.getState() === states.rest &&
             movementState.getState() !== movementStates.dodge
         ) {
@@ -71,7 +72,7 @@ export const useRifle = ({
                 x: 40,
                 parent: position
             });
-            barrelPosition.rotateAroundParent(rotation);
+            barrelPosition.translateAroundParent(rotation);
 
             const recoil = Math.random() * 4 - 2;
             const direction = rotation + recoil;
@@ -79,13 +80,13 @@ export const useRifle = ({
                 position: barrelPosition,
                 direction
             });
-            registry.register(bullet);
+            registry().register(bullet);
         }
     };
 
     const animate = () => {
 
-        spriteOptions.setFlip(directionState.isLeft());
+        spriteOptions.setMirror(directionState.isLeft());
         spriteOptions.setZIndex(-1 * directionState.isLeft());
 
         switch(stateMachine.getState()) {

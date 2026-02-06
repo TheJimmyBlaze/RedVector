@@ -6,7 +6,7 @@ import {
     useLineCollider
 } from 'titanium';
 
-import { gameCamera as drawCamera } from '../../app';
+import { gameCamera as drawCamera } from '../../globals';
 import { useProjectileBody } from './projectileBody';
 import { useBulletAnimator } from './bulletAnimator';
 

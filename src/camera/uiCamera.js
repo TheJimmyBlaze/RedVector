@@ -1,10 +1,10 @@
-import { useEntity, useCamera } from 'titanium';
+import { useEntity, useCameraCtx } from 'titanium';
 
 export const useUiCamera = ({
     canvas
 }) => {
 
-    const uiCamera = useCamera({canvas});
+    const uiCamera = useCameraCtx({canvas});
 
     const entity = useEntity({
         components: {

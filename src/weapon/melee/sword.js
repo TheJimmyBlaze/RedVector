@@ -8,6 +8,7 @@ import {
 
 import { binds } from '../../keyBinds';
 import { movementStates } from '../../player/playerMovementState';
+import { images } from '../../globals';
 
 export const useSword = ({
     position,
@@ -31,7 +32,7 @@ export const useSword = ({
     });
 
     const sprites = useSpriteSheet({
-        imagePath: 'sprites/weapon_melee_sword_sheet.png',
+        image: images.sword,
         sliceWidth: 64,
         sliceHeight: 48,
         runs: [
@@ -62,7 +63,7 @@ export const useSword = ({
     const swing = () => {
 
         if (
-            !input.wasPressed(binds.weaponAttack) ||
+            !input().wasPressed(binds.weaponAttack) ||
             movementState.getState() === movementStates.dodge
         ) return;
 
@@ -79,40 +80,40 @@ export const useSword = ({
         switch(stateMachine.getState()) {
             case states.right:
                 setSprite('rest');
-                spriteOptions.setFlip(false);
+                spriteOptions.setMirror(false);
                 spriteOptions.setZIndex(-1 * directionState.isLeft());
                 break;
             case states.left:
                 setSprite('rest');
-                spriteOptions.setFlip(true);
+                spriteOptions.setMirror(true);
                 spriteOptions.setZIndex(-1 * !directionState.isLeft());
                 break;
             case states.forehandAnticipation:
                 if (setSprite('anticipation')) {
                     sprite.registerFrameEvent(1, () => stateMachine.setState(states.forehand));
                 }
-                spriteOptions.setFlip(false);
+                spriteOptions.setMirror(false);
                 spriteOptions.setZIndex(-1 * directionState.isLeft());
                 break;
             case states.backhandAnticipation:
                 if (setSprite('anticipation')) {
                     sprite.registerFrameEvent(1, () => stateMachine.setState(states.backhand));
                 }
-                spriteOptions.setFlip(true);
+                spriteOptions.setMirror(true);
                 spriteOptions.setZIndex(-1 * !directionState.isLeft());
                 break;
             case states.forehand:
                 if (setSprite('swoosh')) {
                     sprite.registerFrameEvent(2, () => stateMachine.setState(states.left));
                 }
-                spriteOptions.setFlip(false);
+                spriteOptions.setMirror(false);
                 spriteOptions.setZIndex(-1 * !directionState.isLeft());
                 break;
             case states.backhand:
                 if (setSprite('swoosh')) {
                     sprite.registerFrameEvent(2, () => stateMachine.setState(states.right));
                 }
-                spriteOptions.setFlip(true);
+                spriteOptions.setMirror(true);
                 spriteOptions.setZIndex(-1 * directionState.isLeft());
                 break;
         }

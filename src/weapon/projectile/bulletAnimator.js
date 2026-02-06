@@ -3,6 +3,7 @@ import {
     useSpriteSheetRun,
     useSpriteOptions
 } from 'titanium';
+import { images } from '../../globals';
 
 export const useBulletAnimator = ({
     position,
@@ -13,7 +14,7 @@ export const useBulletAnimator = ({
 
     const drawPosition = position.copy();
     const sprites = useSpriteSheet({
-        imagePath: 'sprites/weapon_ranged_bullet_sheet.png',
+        image: images.bullet,
         sliceWidth: 16,
         sliceHeight: 1,
         runs: [

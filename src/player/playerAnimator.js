@@ -6,6 +6,7 @@ import {
 } from 'titanium';
 
 import { movementStates } from './playerMovementState';
+import { images } from '../globals';
 
 export const usePlayerAnimator = ({
     position,
@@ -21,7 +22,7 @@ export const usePlayerAnimator = ({
     );
     
     const sprites = useSpriteSheet({
-        imagePath: 'sprites/character_sheet.png',
+        image: images.character,
         sliceWidth: 32,
         sliceHeight: 32,
         runs: [
@@ -60,7 +61,7 @@ export const usePlayerAnimator = ({
             spriteOptions.setRotation(0);
         }
 
-        spriteOptions.setFlip(playerDirectionState.isLeft());
+        spriteOptions.setMirror(playerDirectionState.isLeft());
 
         switch(playerMovementState.getState()) {
             case movementStates.idle:

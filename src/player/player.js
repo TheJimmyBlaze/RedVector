@@ -7,9 +7,8 @@ import {
 } from 'titanium';
 
 import { 
-    gameCamera as drawCamera,
-    debugColliderCameraProxy as colliderProxy
-} from '../app';
+    gameCamera as drawCamera
+} from '../globals';
 
 import { usePlayerPositionStorage } from './playerPositionStorage';
 import { usePlayerController } from './playerController';
@@ -64,8 +63,7 @@ export const usePlayer = () => {
 
     const playerCollider = useCircleCollider({
         position: colliderPosition,
-        radius: 6,
-        drawCamera: colliderProxy
+        radius: 6
     });
     
     const rigidBody = useRigidBody({

@@ -4,9 +4,6 @@ import {
     useRectCollider
 } from 'titanium';
 
-import {
-    debugAgitatorCameraProxy as drawCamera
-} from '../../app';
 
 export const useLinearTranslator = ({
     position,
@@ -19,13 +16,12 @@ export const useLinearTranslator = ({
 
     const collider = useRectCollider({
         position,
-        width, height,
-        drawCamera
+        width, height
     });
 
     const update = () => {
         
-        const bodies = registry.getComponentsByName("rigidBody");
+        const bodies = registry().getComponentsByName("rigidBody");
         const collisions = bodies.filter(candidate => candidate.collider.overlaps(collider));
 
         if (!collisions?.length) return;
@@ -44,14 +40,9 @@ export const useLinearTranslator = ({
         });
     };
 
-    const draw = () => {
-        collider.actions.draw();
-    };
-
     return {
         actions: {
-            update,
-            draw
+            update
         }
     };
 };

@@ -27,8 +27,8 @@ export const useProjectileBody = ({
 
     const destroy = () => {
 
-        const projectileEntity = registry.getEntityById(entityId);
-        registry.deregister(projectileEntity);
+        const projectileEntity = registry().getEntityById(entityId);
+        registry().deregister(projectileEntity);
     };
 
     const update = () => {

@@ -25,8 +25,8 @@ export const usePlayerWeapon = ({
 
     const update = () => {
 
-        input.wasPressed(binds.weaponOne) && setWeapon(useRifle);
-        input.wasPressed(binds.weaponTwo) && setWeapon(useSword);
+        input().wasPressed(binds.weaponOne) && setWeapon(useRifle);
+        input().wasPressed(binds.weaponTwo) && setWeapon(useSword);
 
         weapon.actions.update();
     };

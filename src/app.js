@@ -1,44 +1,25 @@
-import { useGame, registry } from 'titanium';
 
-import './keyBinds';
+import './globals';
 
-import { useAppCanvas } from './camera/appCanvas';
-import { useGameCamera } from './camera/gameCamera';
-import { useUiCamera } from './camera/uiCamera';
+import { useGame } from 'titanium';
 
-import { usePlayer } from './player/player';
+import { useGameView } from './view/gameView';
 
-import { useLobby } from './level/lobby';
-import { useCameraProxy } from './camera/cameraProxy';
-import { useDebugMenu } from './debug/debugMenu';
+export const game = useGame();
 
-const game = useGame({});
+export const init = () => {
 
-const appCanvas = useAppCanvas();
+    const view = useGameView();
+    view.initialize();
+};
 
-export const gameCamera = useGameCamera({canvas: appCanvas});
-export const uiCamera = useUiCamera({canvas: appCanvas});
+export const start = async () => {
+    
+    init();
 
-export const debugColliderCameraProxy = useCameraProxy({ drawCamera: gameCamera, drawColour: 'cornflowerBlue' });
-export const debugAgitatorCameraProxy = useCameraProxy({ drawCamera: gameCamera, drawColour: 'gold' });
-export const debugProfilerCameraProxy = useCameraProxy({ drawCamera: uiCamera, drawColour: 'greenYellow' });
-
-gameCamera.setScale(4);
-uiCamera.setScale(1.5);
-
-registry.register(appCanvas);
-registry.register(gameCamera);
-registry.register(uiCamera);
-
-registry.register(useDebugMenu());
-debugProfilerCameraProxy.setEnabled(true);
-
-registry.register(useLobby());
-
-registry.register(usePlayer());
-
-console.log(registry.stringify());
+    game.start();
+};
 
 export const run = () => {
-    window.addEventListener('load', () => game.start());
+    window.addEventListener('load', () => start());
 }
